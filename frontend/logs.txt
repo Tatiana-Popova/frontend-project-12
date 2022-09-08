@@ -1,0 +1,100 @@
+2022-09-08T14:23:23.062552+00:00 app[api]: Release v5 created by user tatianapopova0103@gmail.com
+2022-09-08T14:23:23.459955+00:00 heroku[web.1]: State changed from crashed to starting
+2022-09-08T14:23:24.000000+00:00 app[api]: Build succeeded
+2022-09-08T14:23:26.179267+00:00 heroku[web.1]: Starting process with command `npm start`
+2022-09-08T14:23:27.825436+00:00 app[web.1]: npm ERR! Missing script: "start"
+2022-09-08T14:23:27.825574+00:00 app[web.1]: npm ERR!
+2022-09-08T14:23:27.825709+00:00 app[web.1]: npm ERR! Did you mean one of these?
+2022-09-08T14:23:27.825767+00:00 app[web.1]: npm ERR!     npm star # Mark your favorite packages
+2022-09-08T14:23:27.825866+00:00 app[web.1]: npm ERR!     npm stars # View packages marked as favorites
+2022-09-08T14:23:27.825906+00:00 app[web.1]: npm ERR!
+2022-09-08T14:23:27.825942+00:00 app[web.1]: npm ERR! To see a list of scripts, run:
+2022-09-08T14:23:27.826034+00:00 app[web.1]: npm ERR!   npm run
+2022-09-08T14:23:27.827587+00:00 app[web.1]: 
+2022-09-08T14:23:27.827741+00:00 app[web.1]: npm ERR! A complete log of this run can be found in:
+2022-09-08T14:23:27.827787+00:00 app[web.1]: npm ERR!     /app/.npm/_logs/2022-09-08T14_23_27_789Z-debug-0.log
+2022-09-08T14:23:27.956908+00:00 heroku[web.1]: Process exited with status 1
+2022-09-08T14:23:28.098383+00:00 heroku[web.1]: State changed from starting to crashed
+2022-09-08T14:23:28.115250+00:00 heroku[web.1]: State changed from crashed to starting
+2022-09-08T14:23:31.247151+00:00 heroku[web.1]: Starting process with command `npm start`
+2022-09-08T14:23:33.074111+00:00 app[web.1]: npm ERR! Missing script: "start"
+2022-09-08T14:23:33.074256+00:00 app[web.1]: npm ERR!
+2022-09-08T14:23:33.074380+00:00 app[web.1]: npm ERR! Did you mean one of these?
+2022-09-08T14:23:33.074433+00:00 app[web.1]: npm ERR!     npm star # Mark your favorite packages
+2022-09-08T14:23:33.074533+00:00 app[web.1]: npm ERR!     npm stars # View packages marked as favorites
+2022-09-08T14:23:33.074573+00:00 app[web.1]: npm ERR!
+2022-09-08T14:23:33.074608+00:00 app[web.1]: npm ERR! To see a list of scripts, run:
+2022-09-08T14:23:33.074700+00:00 app[web.1]: npm ERR!   npm run
+2022-09-08T14:23:33.076273+00:00 app[web.1]: 
+2022-09-08T14:23:33.076427+00:00 app[web.1]: npm ERR! A complete log of this run can be found in:
+2022-09-08T14:23:33.076474+00:00 app[web.1]: npm ERR!     /app/.npm/_logs/2022-09-08T14_23_32_983Z-debug-0.log
+2022-09-08T14:23:33.216205+00:00 heroku[web.1]: Process exited with status 1
+2022-09-08T14:23:33.943461+00:00 heroku[web.1]: State changed from starting to crashed
+2022-09-08T14:23:48.401186+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=rocky-springs-55748.herokuapp.com request_id=6ab87003-110f-46dd-bdd3-5554f1f7fde2 fwd="5.165.192.4" dyno= connect= service= status=503 bytes= protocol=https
+2022-09-08T14:24:28.414556+00:00 heroku[web.1]: State changed from crashed to starting
+2022-09-08T14:24:31.196793+00:00 heroku[web.1]: Starting process with command `npm start`
+2022-09-08T14:24:33.064756+00:00 app[web.1]: npm ERR! Missing script: "start"
+2022-09-08T14:24:33.064903+00:00 app[web.1]: npm ERR!
+2022-09-08T14:24:33.065021+00:00 app[web.1]: npm ERR! Did you mean one of these?
+2022-09-08T14:24:33.065079+00:00 app[web.1]: npm ERR!     npm star # Mark your favorite packages
+2022-09-08T14:24:33.065182+00:00 app[web.1]: npm ERR!     npm stars # View packages marked as favorites
+2022-09-08T14:24:33.065233+00:00 app[web.1]: npm ERR!
+2022-09-08T14:24:33.065254+00:00 app[web.1]: npm ERR! To see a list of scripts, run:
+2022-09-08T14:24:33.065344+00:00 app[web.1]: npm ERR!   npm run
+2022-09-08T14:24:33.066927+00:00 app[web.1]: 
+2022-09-08T14:24:33.072913+00:00 app[web.1]: npm ERR! A complete log of this run can be found in:
+2022-09-08T14:24:33.072925+00:00 app[web.1]: npm ERR!     /app/.npm/_logs/2022-09-08T14_24_33_018Z-debug-0.log
+2022-09-08T14:24:33.181864+00:00 heroku[web.1]: Process exited with status 1
+2022-09-08T14:24:33.291493+00:00 heroku[web.1]: State changed from starting to crashed
+2022-09-08T14:24:36.925208+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=rocky-springs-55748.herokuapp.com request_id=dd8a6110-10f4-4f55-be65-376c382a3c7d fwd="5.165.192.4" dyno= connect= service= status=503 bytes= protocol=https
+2022-09-08T14:31:26.203213+00:00 heroku[web.1]: State changed from crashed to starting
+2022-09-08T14:31:29.262076+00:00 heroku[web.1]: Starting process with command `npm start`
+2022-09-08T14:31:31.025910+00:00 app[web.1]: npm ERR! Missing script: "start"
+2022-09-08T14:31:31.026064+00:00 app[web.1]: npm ERR!
+2022-09-08T14:31:31.026203+00:00 app[web.1]: npm ERR! Did you mean one of these?
+2022-09-08T14:31:31.026266+00:00 app[web.1]: npm ERR!     npm star # Mark your favorite packages
+2022-09-08T14:31:31.026378+00:00 app[web.1]: npm ERR!     npm stars # View packages marked as favorites
+2022-09-08T14:31:31.026426+00:00 app[web.1]: npm ERR!
+2022-09-08T14:31:31.026465+00:00 app[web.1]: npm ERR! To see a list of scripts, run:
+2022-09-08T14:31:31.026578+00:00 app[web.1]: npm ERR!   npm run
+2022-09-08T14:31:31.028331+00:00 app[web.1]: 
+2022-09-08T14:31:31.028495+00:00 app[web.1]: npm ERR! A complete log of this run can be found in:
+2022-09-08T14:31:31.028542+00:00 app[web.1]: npm ERR!     /app/.npm/_logs/2022-09-08T14_31_30_981Z-debug-0.log
+2022-09-08T14:31:31.151388+00:00 heroku[web.1]: Process exited with status 1
+2022-09-08T14:31:31.305159+00:00 heroku[web.1]: State changed from starting to crashed
+2022-09-08T14:31:34.853295+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=rocky-springs-55748.herokuapp.com request_id=0948439b-496e-4a32-9be1-2c0bf4c89305 fwd="5.165.192.4" dyno= connect= service= status=503 bytes= protocol=https
+2022-09-08T14:36:11.000000+00:00 app[api]: Build started by user tatianapopova0103@gmail.com
+2022-09-08T14:36:32.595322+00:00 app[api]: Deploy d4b82312 by user tatianapopova0103@gmail.com
+2022-09-08T14:36:32.595322+00:00 app[api]: Release v6 created by user tatianapopova0103@gmail.com
+2022-09-08T14:36:33.019781+00:00 heroku[web.1]: State changed from crashed to starting
+2022-09-08T14:36:34.000000+00:00 app[api]: Build succeeded
+2022-09-08T14:36:35.800602+00:00 heroku[web.1]: Starting process with command `npm start`
+2022-09-08T14:36:37.589824+00:00 app[web.1]: npm ERR! Missing script: "start"
+2022-09-08T14:36:37.589989+00:00 app[web.1]: npm ERR!
+2022-09-08T14:36:37.590124+00:00 app[web.1]: npm ERR! Did you mean one of these?
+2022-09-08T14:36:37.590191+00:00 app[web.1]: npm ERR!     npm star # Mark your favorite packages
+2022-09-08T14:36:37.590302+00:00 app[web.1]: npm ERR!     npm stars # View packages marked as favorites
+2022-09-08T14:36:37.590351+00:00 app[web.1]: npm ERR!
+2022-09-08T14:36:37.590395+00:00 app[web.1]: npm ERR! To see a list of scripts, run:
+2022-09-08T14:36:37.590497+00:00 app[web.1]: npm ERR!   npm run
+2022-09-08T14:36:37.592145+00:00 app[web.1]: 
+2022-09-08T14:36:37.592313+00:00 app[web.1]: npm ERR! A complete log of this run can be found in:
+2022-09-08T14:36:37.592374+00:00 app[web.1]: npm ERR!     /app/.npm/_logs/2022-09-08T14_36_37_549Z-debug-0.log
+2022-09-08T14:36:37.725080+00:00 heroku[web.1]: Process exited with status 1
+2022-09-08T14:36:38.113539+00:00 heroku[web.1]: State changed from starting to crashed
+2022-09-08T14:36:38.122720+00:00 heroku[web.1]: State changed from crashed to starting
+2022-09-08T14:36:41.064486+00:00 heroku[web.1]: Starting process with command `npm start`
+2022-09-08T14:36:43.038376+00:00 app[web.1]: npm ERR! Missing script: "start"
+2022-09-08T14:36:43.038555+00:00 app[web.1]: npm ERR!
+2022-09-08T14:36:43.038698+00:00 app[web.1]: npm ERR! Did you mean one of these?
+2022-09-08T14:36:43.038762+00:00 app[web.1]: npm ERR!     npm star # Mark your favorite packages
+2022-09-08T14:36:43.038877+00:00 app[web.1]: npm ERR!     npm stars # View packages marked as favorites
+2022-09-08T14:36:43.038922+00:00 app[web.1]: npm ERR!
+2022-09-08T14:36:43.038959+00:00 app[web.1]: npm ERR! To see a list of scripts, run:
+2022-09-08T14:36:43.039059+00:00 app[web.1]: npm ERR!   npm run
+2022-09-08T14:36:43.040644+00:00 app[web.1]: 
+2022-09-08T14:36:43.040809+00:00 app[web.1]: npm ERR! A complete log of this run can be found in:
+2022-09-08T14:36:43.040864+00:00 app[web.1]: npm ERR!     /app/.npm/_logs/2022-09-08T14_36_42_982Z-debug-0.log
+2022-09-08T14:36:43.188968+00:00 heroku[web.1]: Process exited with status 1
+2022-09-08T14:36:43.258931+00:00 heroku[web.1]: State changed from starting to crashed
+2022-09-08T14:36:47.762670+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=rocky-springs-55748.herokuapp.com request_id=ec1bac22-965f-4411-ab1e-577cff959b07 fwd="5.165.192.4" dyno= connect= service= status=503 bytes= protocol=https
