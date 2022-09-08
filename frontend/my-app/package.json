@@ -14,11 +14,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start -s ./frontend/my-app/build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server": "react-scripts start -s ./frontend/my-app/build"
+    "start-server": "-s ./frontend/my-app/build"
   },
   "eslintConfig": {
     "extends": [
