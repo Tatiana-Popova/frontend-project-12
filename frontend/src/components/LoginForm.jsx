@@ -30,7 +30,7 @@ const LoginForm = () => {
         const res = await axios.post(routes.loginPath(), { username, password });
         auth.logIn();
         localStorage.clear();
-        localStorage.setItem('userId', res.data.token);
+        localStorage.setItem('userId', JSON.stringify(res.data));
 
         auth.logIn();
         navigate('/');

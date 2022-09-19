@@ -11,6 +11,9 @@ import {
 } from "react-router-dom";
 import AuthContext from '../contexts/index.jsx';
 import useAuth from '../hooks/index.jsx';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from "axios";
+import routes from "../routes.js";
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
