@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LoginForm from "./LoginForm.jsx";
 import Chat from "./Chat.jsx"
 import NotFound from "./notFound.jsx";
@@ -11,26 +11,24 @@ import {
 } from "react-router-dom";
 import AuthContext from '../contexts/index.jsx';
 import useAuth from '../hooks/index.jsx';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from "axios";
-import routes from "../routes.js";
+import { useDispatch } from "react-redux";
+import { fetchInitialData } from "./Chat.jsx";
+import SocketContext from "../contexts/SocketContext.jsx";
+import useSocket from "../hooks/useSocket.jsx";
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
-
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
     localStorage.removeItem('userId');
     setLoggedIn(false);
   };
-
   return (
     <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   const hasToken = localStorage.getItem('userId');
@@ -39,9 +37,26 @@ const PrivateRoute = ({ children }) => {
     hasToken ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
-
-const App = () => {
+const SocketProvider = ({children}) => {
+  const testOn = () => {
+    useSocket.on('connection', () => {
+      console.log('TEST', useSocket);
+    })
+  }
   return (
+    <SocketContext.Provider value={{testOn}}>
+        {children}
+    </SocketContext.Provider>
+  )
+};
+
+const App = (socket) => {
+  const dispatch = useDispatch();
+  dispatch(fetchInitialData())
+   
+
+  return (
+    <SocketProvider>
     <AuthProvider>
       <Router>
         <Routes>
@@ -49,7 +64,7 @@ const App = () => {
             path="/"
             element={(
               <PrivateRoute>
-                <Chat />
+                <Chat value={socket}/>
               </PrivateRoute>
             )}
           />
@@ -58,6 +73,7 @@ const App = () => {
         </Routes>
       </Router>
     </AuthProvider>
+    </SocketProvider>
   )
 };
 

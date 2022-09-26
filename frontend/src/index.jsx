@@ -1,14 +1,15 @@
-
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App.jsx';
 import './assets/index.css';
-import store from './slices/index.js';
-import { Provider } from 'react-redux';
+import Init from './init.js';
+// import { io } from 'socket.io-client';
+
+// const socket = io();
+// socket.on('connection', () => {
+//   console.log('testing', socket.id)
+// })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render( 
-  <Provider store={store}>
-    <App />
-  </Provider>
+  Init()
 );

@@ -2,9 +2,15 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
+import useSocket from '../../hooks/useSocket.jsx';
 
+const Messages = (socket) => {
+  console.log('rendering messages');
+  const test = useSocket();
+  useEffect(()=> {
+    test.testOn();
+  })
 
-const Messages = () => {
   const messages = useSelector((state) => {
     return (Object.values(state.messages.entities))
   });
@@ -32,7 +38,7 @@ const Messages = () => {
           <span className="text-muted">{messages.length} сообщений</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
-
+         
         </div>
         <div className="mt-auto px-5 py-3">
           <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
