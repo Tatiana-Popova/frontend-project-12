@@ -1,6 +1,5 @@
 import { createContext } from 'react';
-import { io } from 'socket.io-client';
 
-const SocketContext = createContext(io);
+const SocketContext = createContext({});
 
 export default SocketContext;

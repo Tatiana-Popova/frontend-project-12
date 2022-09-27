@@ -8,7 +8,7 @@ const Messages = (socket) => {
   console.log('rendering messages');
   const test = useSocket();
   useEffect(()=> {
-    test.testOn();
+    test.testEmit({ body: "message text", channelId: 1, username: 'admin' });
   })
 
   const messages = useSelector((state) => {

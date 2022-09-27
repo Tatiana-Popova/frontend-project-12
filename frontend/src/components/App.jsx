@@ -10,11 +10,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import AuthContext from '../contexts/index.jsx';
-import useAuth from '../hooks/index.jsx';
 import { useDispatch } from "react-redux";
 import { fetchInitialData } from "./Chat.jsx";
 import SocketContext from "../contexts/SocketContext.jsx";
-import useSocket from "../hooks/useSocket.jsx";
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -30,49 +28,46 @@ const AuthProvider = ({ children }) => {
   );
 };
 const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
   const hasToken = localStorage.getItem('userId');
   const location = useLocation();
   return (
     hasToken ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
-const SocketProvider = ({children}) => {
-  const testOn = () => {
-    useSocket.on('connection', () => {
-      console.log('TEST', useSocket);
-    })
+const SocketProvider = ({socket, children}) => {
+  const testEmit = (params) => {
+    console.log('SOCKET IS', socket)
+    socket.emit('newMessage', params);
   }
   return (
-    <SocketContext.Provider value={{testOn}}>
-        {children}
+    <SocketContext.Provider value={{testEmit}}>
+      {children}
     </SocketContext.Provider>
   )
 };
 
 const App = (socket) => {
   const dispatch = useDispatch();
-  dispatch(fetchInitialData())
-   
+  dispatch(fetchInitialData());
 
   return (
-    <SocketProvider>
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={(
-              <PrivateRoute>
-                <Chat value={socket}/>
-              </PrivateRoute>
-            )}
-          />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <SocketProvider socket={socket}>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={(
+                <PrivateRoute>
+                  <Chat />
+                </PrivateRoute>
+              )}
+            />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </SocketProvider>
   )
 };
