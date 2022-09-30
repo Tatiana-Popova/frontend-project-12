@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useRef} from "react";
-import { useFormik, ErrorMessage } from 'formik';
+import React, { useState, useRef} from "react";
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 import avatar from '../assets/avatar.jpg';
 import { Form, Button, Image } from 'react-bootstrap';
 import useAuth from '../hooks/index.jsx';
 import axios from "axios";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import routes from '../routes';
 
 

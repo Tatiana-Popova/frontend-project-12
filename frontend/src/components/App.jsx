@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LoginForm from "./LoginForm.jsx";
 import Chat from "./Chat.jsx"
 import NotFound from "./notFound.jsx";
@@ -13,6 +13,7 @@ import AuthContext from '../contexts/index.jsx';
 import { useDispatch } from "react-redux";
 import { fetchInitialData } from "./Chat.jsx";
 import SocketContext from "../contexts/SocketContext.jsx";
+import { actions as messageActions } from '../slices/messageSlice';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -35,18 +36,22 @@ const PrivateRoute = ({ children }) => {
   );
 };
 const SocketProvider = ({socket, children}) => {
-  const testEmit = (params) => {
-    console.log('SOCKET IS', socket)
-    socket.emit('newMessage', params);
+  const dispatch = useDispatch();
+  const socketEmit = (params) => {
+    socket.emit('newMessage', params, (response) => {
+      if (response.status !== 'ok') {
+        dispatch(messageActions.addNetworkError(response))
+      }
+    });
   }
   return (
-    <SocketContext.Provider value={{testEmit}}>
+    <SocketContext.Provider value={{socketEmit}}>
       {children}
     </SocketContext.Provider>
   )
 };
 
-const App = (socket) => {
+const App = ({socket}) => {
   const dispatch = useDispatch();
   dispatch(fetchInitialData());
 

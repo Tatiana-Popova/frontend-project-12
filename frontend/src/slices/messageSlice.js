@@ -8,6 +8,11 @@ const messageSlice = createSlice({
   name: 'messages',
   initialState: messagesAdapter.getInitialState({loading: 'idle', error: null}),
   reducers: {
+    addMessage: messagesAdapter.addOne,
+    addNetworkError(state, action) {
+      state.loading = 'failed';
+      state.error = action;
+    } 
   },
   extraReducers: (builder) => {
     builder

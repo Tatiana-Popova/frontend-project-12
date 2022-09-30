@@ -1,18 +1,16 @@
+import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import App from './components/App';
-import React from 'react';
 import { Provider } from 'react-redux';
 import store from './slices/index.js'
 import i18n from './i18n';
+import { actions as messageActions } from './slices/messageSlice';
 
 const Init = (socket) => {
-  socket.on('connection', () => {
-    console.log('testing', socket.id)
-  })
   socket.on('newMessage', (data) => {
-    console.log('TEST SOCKET ON', data);
-  })
-
+    store.dispatch(messageActions.addMessage(data));
+  });
+  
   return (
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
