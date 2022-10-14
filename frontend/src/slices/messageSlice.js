@@ -1,4 +1,4 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { current, createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import routes from "../routes";
 import axios from "axios";
 import { fetchInitialData } from "../components/Chat";
@@ -12,7 +12,13 @@ const messageSlice = createSlice({
     addNetworkError(state, action) {
       state.loading = 'failed';
       state.error = action;
-    } 
+    } ,
+    removeMessages(state, action) {
+      const channelId = action.payload;
+      const messagesByChannelId = Object.values(current(state).entities)
+      .filter((message) => message.channelId === channelId);
+      messagesAdapter.removeMany(state, messagesByChannelId);
+    }
   },
   extraReducers: (builder) => {
     builder

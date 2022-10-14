@@ -24,7 +24,7 @@ export const fetchInitialData = createAsyncThunk(
 const Chat = (socket) => {
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
-       <div className="row h-100 bg-white flex-md-row">
+       <div className="row bg-white flex-md-row" style={{height: '90vh'}}>
       <Channels />
       <Messages value={socket}/>
     </div>

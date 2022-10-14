@@ -44,6 +44,7 @@ const LoginForm = () => {
       }
     }
   })
+  
   return (
     <div className="col-12 col-md-8 col-xxl-6">
     <div className="card shadow-sm">

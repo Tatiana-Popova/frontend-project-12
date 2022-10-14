@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef, useEffect} from "react";
 import { useFormik } from "formik";
 import { Form, Button } from 'react-bootstrap';
 import UseSocket from '../../hooks/UseSocket.jsx';
@@ -7,18 +7,30 @@ import cn from 'classnames';
 
 const NewMessageForm = ({currentChannel}) => {
   const socket = UseSocket();
+  const [newMessageInput, setNewMessageInput] = useState('');
   const inputRef = useRef();
+  const sendButtonRef = useRef();
   const isDisabled = useSelector((state) => state.messages.loading === 'failed');
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  useEffect(() => {
+    sendButtonRef.current.disabled = (newMessageInput === '');
+  }, [newMessageInput])
+  
   const formik = useFormik({
     initialValues: {
       newMessage: '',
     },
-    onSubmit: (values) => {
+    onSubmit: (values, {resetForm}) => {
       const { newMessage } = values;
       const { username } = JSON.parse(localStorage.getItem('userId'));
       const channelId = currentChannel.id;
-      socket.socketEmit({body: newMessage, channelId, username});
+      socket.emitMessage({body: newMessage, channelId, username});
+      resetForm({values: ''});
+      setNewMessageInput('');
     },
+    
   });
 
   const btnClass = cn('btn', 'btn-group-vertical', {'disabled': isDisabled });
@@ -27,14 +39,17 @@ const NewMessageForm = ({currentChannel}) => {
       <Form.Group className="input-group has-validation">
         <Form.Control
           value = {formik.values.newMessage}
-          onChange = {formik.handleChange}
+          onChange = {(e) => {
+            setNewMessageInput(e.target.value);
+            formik.handleChange(e);
+          }}
           onBlur={formik.handleBlur} 
           placeholder="Введите сообщение..." 
           id="newMessage" 
           className="border-0 p-0 ps-2 form-control"
           ref={inputRef}
         />
-        <Button type="submit" className={btnClass}>
+        <Button type="submit" className={btnClass} ref={sendButtonRef}>
           {'>'}
           <span className="visually-hidden">Отправить</span>
         </Button>

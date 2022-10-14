@@ -37,15 +37,36 @@ const PrivateRoute = ({ children }) => {
 };
 const SocketProvider = ({socket, children}) => {
   const dispatch = useDispatch();
-  const socketEmit = (params) => {
+  const emitMessage = (params) => {
     socket.emit('newMessage', params, (response) => {
       if (response.status !== 'ok') {
         dispatch(messageActions.addNetworkError(response))
       }
     });
   }
+  const emitNewChannel = (params) => {
+    socket.emit('newChannel', params, (response) => {
+      if (response.status !== 'ok') {
+        console.log('ошибка создания канала :(');
+      }
+    })
+  };
+  const emitRemoveChannel = (channelId) => {
+    socket.emit('removeChannel', channelId, (response) => {
+      if (response.status !== 'ok') {
+        console.log('ошибка удаления канала');
+      }
+    });
+  }
+  const emitRenameChannel = (params) => {
+    socket.emit('renameChannel', params, (response) => {
+      if (response.status !== 'ok') {
+        console.log('ошибка переименования канала');
+      }
+    })
+  }
   return (
-    <SocketContext.Provider value={{socketEmit}}>
+    <SocketContext.Provider value={{emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel}} >
       {children}
     </SocketContext.Provider>
   )

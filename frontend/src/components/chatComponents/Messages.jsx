@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import NewMessageForm from "./NewMessageForm.jsx";
 
 const Messages = (socket) => {
-  const messages = useSelector((state) => {
-    return (Object.values(state.messages.entities))
-  });
-  console.log('messages = ', messages);
   const channels = useSelector((state) => {
     return Object.values(state.channels.entities);
   });
-  const currentChannel = (channels.find(channel => channel.isCurrent));
+  const currentChannel = (channels.find(channel => channel.isCurrent) ?? 1);
+  const messages = useSelector((state) => {
+    return (Object.values(state.messages.entities))
+  });
+  const filteredMessages = messages.filter((message) => message.channelId === currentChannel.id)
 
   return (
     <div className="col p-0 h-100">
@@ -19,11 +19,11 @@ const Messages = (socket) => {
           <p className="m-0">
             <b># {currentChannel ? currentChannel.name : ''}</b>
           </p>
-          <span className="text-muted">{messages.length} сообщений</span>
+          <span className="text-muted">{filteredMessages.length} сообщений</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {
-            messages && messages.map((message) => {
+            filteredMessages && filteredMessages.map((message) => {
               return (
                 <div className="text-break mb-2">
                   <b>{message.username}</b>: {message.body}
