@@ -29,6 +29,8 @@ const channelSlice = createSlice({
         state.error = null
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
+        console.log('ОШИБОЧКА', action.error);
+
         state.loading = 'failed';
         state.error = action.error
       })

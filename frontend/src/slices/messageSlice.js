@@ -1,6 +1,4 @@
 import { current, createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import routes from "../routes";
-import axios from "axios";
 import { fetchInitialData } from "../components/Chat";
 
 const messagesAdapter = createEntityAdapter();

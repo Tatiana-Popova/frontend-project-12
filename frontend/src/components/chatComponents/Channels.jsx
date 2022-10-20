@@ -3,9 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
 import {changeCurrentChannel} from '../../slices/channelSlice';
 import getModal from '../../modals/index.js';
-import { Dropdown, ButtonGroup, Button } from 'react-bootstrap'
+import { Dropdown, Button, Col, Nav } from 'react-bootstrap'
+import useAuth from "../../hooks";
+import { useNavigate } from "react-router-dom";
 
 const Channels = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const channelState = useSelector((state) => state.channels);
+  const channelStateErrorCode = channelState.error?.code;
+  console.log(channelStateErrorCode);
+  if (channelStateErrorCode === 'ERR_BAD_REQUEST') {
+    auth.logOut();
+    navigate('/login');
+  }
   const dispatch = useDispatch();
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
@@ -21,24 +32,23 @@ const Channels = () => {
   const channels = useSelector((state) => {
     return (Object.values(state.channels.entities))
   });
-
   return (
-    <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
+    <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>Каналы</span>
-        <button 
-          className="p-0 text-primary btn btn-group-vertical"
+        <Button 
+          className="p-0 text-primary btn btn-group-vertical btn-light"
           onClick={ () => showModal('addingChannel') }>
-            +
-          </button>
+          +
+        </Button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-2">
+      <Nav className="flex-column nav-pills nav-fill px-2">
         {channels.map((channel) => {
           if (channel.removable) {
             return (
-              <li className="nav-item w-100">
+              <Nav.Item className="nav-item w-100">
                 <Dropdown className="d-flex dropdown btn-group">
-                  <Button className={cn('w-100', 'rounded-0', 'text-start', 'btn', 'text-truncate', {'btn-secondary': channel.isCurrent },  {'btn-light': !channel.isCurrent})} onClick={(e) => dispatch(changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id}))}>
+                  <Button className={cn('w-100', 'rounded-0', 'text-start', {'btn-secondary': channel.isCurrent },  {'btn-light': !channel.isCurrent})} onClick={(e) => dispatch(changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id}))}>
                     <span className="me-1">#</span>
                       {channel.name}
                     </Button>
@@ -48,25 +58,25 @@ const Channels = () => {
                     <Dropdown.Item onClick={ () => showModal('renamingChannel', channel) } eventKey="2">Переименовать</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-              </li>
+              </Nav.Item>
             )
           } else {
               return (
-                <li className="nav-item w-100">
-                  <button type="button" 
-                    className={cn('w-100', 'rounded-0', 'text-start', 'btn', 'text-truncate', {'btn-secondary': channel.isCurrent })}
+                <Nav.Item className="nav-item w-100">
+                  <Button type="button" 
+                    className={cn('w-100', 'rounded-0', 'text-start', {'btn-secondary': channel.isCurrent },  {'btn-light': !channel.isCurrent})}
                     onClick={(e) => dispatch(changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id}))}
                     >
                     <span className="me-1">#</span>
                     {channel.name}
-                  </button>
-                </li>
+                  </Button>
+                </Nav.Item>
               )
             }
-      })}
-      </ul>
+        })}
+      </Nav>
       { renderModal({ modalInfo, hideModal })} 
-    </div>
+    </Col>
   )
 };
 

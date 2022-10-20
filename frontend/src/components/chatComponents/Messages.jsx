@@ -1,4 +1,5 @@
 import React from "react";
+import { Col } from "react-bootstrap";
 import { useSelector } from 'react-redux';
 import NewMessageForm from "./NewMessageForm.jsx";
 
@@ -13,7 +14,7 @@ const Messages = (socket) => {
   const filteredMessages = messages.filter((message) => message.channelId === currentChannel.id)
 
   return (
-    <div className="col p-0 h-100">
+    <Col className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
@@ -36,7 +37,7 @@ const Messages = (socket) => {
           {currentChannel && <NewMessageForm currentChannel={currentChannel}/>}
         </div>
       </div>
-    </div>
+    </Col>
   )
 };
 

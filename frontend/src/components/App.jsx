@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm.jsx";
 import Chat from "./Chat.jsx"
 import NotFound from "./notFound.jsx";
+import NavBar from "./NavBar.jsx";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,10 +11,14 @@ import {
   useLocation,
 } from "react-router-dom";
 import AuthContext from '../contexts/index.jsx';
-import { useDispatch } from "react-redux";
-import { fetchInitialData } from "./Chat.jsx";
+import { useDispatch, useSelector } from "react-redux";
 import SocketContext from "../contexts/SocketContext.jsx";
+import { Link } from 'react-router-dom';
 import { actions as messageActions } from '../slices/messageSlice';
+import SignUpForm from "./SignUpForm.jsx";
+import { Button, Container, Navbar } from "react-bootstrap";
+import { fetchInitialData } from "./Chat.jsx";
+import useAuth from "../hooks/index.jsx";
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,13 +33,16 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 const PrivateRoute = ({ children }) => {
+  const auth = useAuth();
   const hasToken = localStorage.getItem('userId');
   const location = useLocation();
   return (
     hasToken ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
+
 const SocketProvider = ({socket, children}) => {
   const dispatch = useDispatch();
   const emitMessage = (params) => {
@@ -73,25 +81,26 @@ const SocketProvider = ({socket, children}) => {
 };
 
 const App = ({socket}) => {
-  const dispatch = useDispatch();
-  dispatch(fetchInitialData());
-
   return (
     <SocketProvider socket={socket}>
       <AuthProvider>
         <Router>
-          <Routes>
-            <Route
-              path="/"
-              element={(
-                <PrivateRoute>
-                  <Chat />
-                </PrivateRoute>
-              )}
-            />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="d-flex flex-column h-100">
+            <NavBar/>
+            <Routes>
+              <Route
+                path="/"
+                element={(
+                  <PrivateRoute>
+                    <Chat />
+                  </PrivateRoute>
+                )}
+              />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/signup" element={<SignUpForm />}/>
+            </Routes>
+          </div>
         </Router>
       </AuthProvider>
     </SocketProvider>
