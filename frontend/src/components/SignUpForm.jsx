@@ -7,8 +7,10 @@ import routes from "../routes";
 import axios from 'axios';
 import useAuth from "../hooks";
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const [firstPassword, setFirstPassword] = useState('');
   const navigate = useNavigate();
   const auth = useAuth();
@@ -19,12 +21,12 @@ const SignUpForm = () => {
       passwordСonfirmation: '',
     },
     validationSchema: yup.object({
-      userName: yup.string().required('Обязательное поле').min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов'),
-      password: yup.string().required('Обязательное поле').min(6, 'Не менее 6 символов'),
+      userName: yup.string().required(t('errors.required')).min(3, t('errors.fromTo')).max(20, t('errors.fromTo')),
+      password: yup.string().required(t('errors.required')).min(6, t('errors.noLess6')),
       passwordConfirmation: yup
         .string()
-        .required('Обязательное поле')
-        .test('passwordsMatch', 'Пароли должны совпадать', (value) => {
+        .required(t('errors.required'))
+        .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => {
         return (value === firstPassword)
       })
     }),
@@ -39,9 +41,8 @@ const SignUpForm = () => {
         navigate('/');
       }
       catch (error) {
-        console.log(error)
         if (error.response.status === 409) {
-         formik.errors.userName = 'Такой пользователь уже существует';
+         formik.errors.userName = t('errors.usernameIsClaimed ');
         }
       };
     }
@@ -57,24 +58,24 @@ const SignUpForm = () => {
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
                 <fieldset disabled={formik.isSubmitting}>
-                  <h1 className="text-center mb-4">Регистрация</h1>
+                  <h1 className="text-center mb-4">{t('registration')}</h1>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
                       value={formik.values.userName}
-                      placeholder="Имя пользователя" 
+                      placeholder={t('username')} 
                       id="userName"
                       isInvalid={formik.errors.userName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                     </Form.Control>
-                    <Form.Label htmlFor="userName">Имя пользователя</Form.Label>      
+                    <Form.Label htmlFor="userName">{t('username')}</Form.Label>      
                     {formik.errors.userName && <div class="invalid-tooltip">{formik.errors.userName}</div>}
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
                       type="password"
                       value={formik.values.password}
-                      placeholder="Пароль" 
+                      placeholder={t('password')}
                       id="password"
                       autocomplete="on"
                       isInvalid={formik.errors.password}
@@ -85,24 +86,24 @@ const SignUpForm = () => {
                       }
                       onBlur={formik.handleBlur}>
                     </Form.Control>
-                    <Form.Label htmlFor="userName">Пароль</Form.Label>
+                    <Form.Label htmlFor="userName">{t('password')}</Form.Label>
                     {formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
                       type="password"
                       value={formik.values.passwordConfirmation}
-                      placeholder="Подтвердите пароль" 
+                      placeholder={t('passwordConfirmation')}
                       id="passwordConfirmation"
                       autocomplete="on"
                       isInvalid={formik.errors.passwordConfirmation}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                     </Form.Control>
-                    <Form.Label htmlFor="userName">Подтведите пароль</Form.Label>
+                    <Form.Label htmlFor="userName">{t('passwordConfirmation')}</Form.Label>
                     {formik.errors.passwordConfirmation && <div class="invalid-tooltip">{formik.errors.passwordConfirmation}</div>}
                   </Form.Group>
-                  <Button type="Submit" className="w-100 mb-3 btn btn-outline-primary btn-light">Зарегистрироваться</Button>
+                  <Button type="Submit" className="w-100 mb-3 btn btn-outline-primary btn-light">{t('register')}</Button>
                 </fieldset>
               </Form>
             </Card.Body>

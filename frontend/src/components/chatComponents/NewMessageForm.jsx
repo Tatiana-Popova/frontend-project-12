@@ -4,8 +4,10 @@ import { Form, Button } from 'react-bootstrap';
 import UseSocket from '../../hooks/UseSocket.jsx';
 import { useSelector } from "react-redux";
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 const NewMessageForm = ({currentChannel}) => {
+  const { t } = useTranslation();
   const socket = UseSocket();
   const [newMessageInput, setNewMessageInput] = useState('');
   const inputRef = useRef();
@@ -44,14 +46,14 @@ const NewMessageForm = ({currentChannel}) => {
             formik.handleChange(e);
           }}
           onBlur={formik.handleBlur} 
-          placeholder="Введите сообщение..." 
+          placeholder={t('enterAMessage')} 
           id="newMessage" 
           className="border-0 p-0 ps-2 form-control"
           ref={inputRef}
         />
         <Button type="submit" className={btnClass} ref={sendButtonRef}>
           {'>'}
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('send')}</span>
         </Button>
       </Form.Group>
     </Form>

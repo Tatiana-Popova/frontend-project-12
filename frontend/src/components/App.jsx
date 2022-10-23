@@ -35,7 +35,6 @@ const AuthProvider = ({ children }) => {
 };
 
 const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
   const hasToken = localStorage.getItem('userId');
   const location = useLocation();
   return (

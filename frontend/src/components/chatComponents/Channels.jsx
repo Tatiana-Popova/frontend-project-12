@@ -6,8 +6,10 @@ import getModal from '../../modals/index.js';
 import { Dropdown, Button, Col, Nav } from 'react-bootstrap'
 import useAuth from "../../hooks";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const Channels = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const navigate = useNavigate();
   const channelState = useSelector((state) => state.channels);
@@ -54,8 +56,8 @@ const Channels = () => {
                     </Button>
                   <Dropdown.Toggle split className={cn({'btn-secondary': channel.isCurrent}, {'btn-light': !channel.isCurrent})}/>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={ () => showModal('removingChannel', channel) } eventKey="1">Удалить</Dropdown.Item>
-                    <Dropdown.Item onClick={ () => showModal('renamingChannel', channel) } eventKey="2">Переименовать</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => showModal('removingChannel', channel) } eventKey="1">{t('delete')}</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => showModal('renamingChannel', channel) } eventKey="2">{t('rename')}</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav.Item>

@@ -7,9 +7,10 @@ import useAuth from '../hooks/index.jsx';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes';
-
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef();
@@ -19,8 +20,8 @@ const LoginForm = () => {
       password: ''
     },
     validationSchema: yup.object({
-      username: yup.string().required(),
-      password: yup.string().required(),
+      username: yup.string().required(t('errors.required')),
+      password: yup.string().required(t('errors.required')),
     }),
     onSubmit: async(values) => {
       const { username, password } = values;
@@ -32,7 +33,7 @@ const LoginForm = () => {
         navigate('/');
       } catch (err) {
         if (axios.isAxiosError(err) || err.response.status === 401) {
-          formik.errors.password = 'Неверные имя пользователя или пароль';
+          formik.errors.password = t('wrongNameOrPassword');
           inputRef.current.select();
           return;
         }
@@ -52,18 +53,18 @@ const LoginForm = () => {
               </Col>
               <Col as={Form} md={6} mt={3} onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <fieldset disabled={formik.isSubmitting}>
-                  <h1 className="text-center mb-4">Войти</h1>
+                  <h1 className="text-center mb-4">{t('enter')}</h1>
                   <Form.Group className="form-floating mb-3"> 
                     <Form.Control 
                       value={formik.values.username} 
                       onChange={formik.handleChange} 
                       onBlur={formik.handleBlur} 
-                      placeholder="Ваш ник" 
+                      placeholder={t('yourNick')}
                       id="username" 
                       className="form-control"
                       isInvalid={formik.errors.username}
                       ref={inputRef}/>
-                    <Form.Label className="form-label" htmlFor="username">Ваш ник</Form.Label> 
+                    <Form.Label className="form-label" htmlFor="username">{t('yourNick')}</Form.Label> 
                     {formik.errors.username && <div class="invalid-tooltip">{formik.errors.username}</div>}
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
@@ -71,23 +72,23 @@ const LoginForm = () => {
                       value={formik.values.password} 
                       onChange={formik.handleChange} 
                       onBlur={formik.handleBlur} 
-                      placeholder="Пароль" 
+                      placeholder={t('password')}
                       autocomplete="on"
                       type="password" 
                       id="password" 
                       isInvalid={formik.errors.password}
                       className="form-control"/>
-                    <Form.Label className="form-label" htmlFor="password">Пароль</Form.Label>
+                    <Form.Label className="form-label" htmlFor="password">{t('password')}</Form.Label>
                     {formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
                   </Form.Group>
-                  <Button type="Submit" className="w-100 mb-3 btn-outline-primary btn-light">Войти</Button>
+                  <Button type="Submit" className="w-100 mb-3 btn-outline-primary btn-light">{t('enter')}</Button>
                 </fieldset>
               </Col>                
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта?</span>
-                <a href="/signup">Регистрация</a>
+                <span>{t('haveNoAccount')}</span>
+                <a href="/signup">{t('registration')}</a>
               </div>
             </Card.Footer>
           </Card>
