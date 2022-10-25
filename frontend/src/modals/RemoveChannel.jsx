@@ -3,13 +3,19 @@ import { useFormik } from 'formik';
 import { Modal } from 'react-bootstrap';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
+import { toast } from "react-toastify";
 
 const RemoveChannel = (props) => {
   const { t } = useTranslation();
   const socket = UseSocket();
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
-    socket.emitRemoveChannel({ id: modalInfo.item.id });
+    try {
+      socket.emitRemoveChannel({ id: modalInfo.item.id });
+      toast.success(t('channelRemoving.success'));
+    } catch (error) {
+      toast.error(t('channelRemoving.error'));
+    }
     onHide();
   };
 

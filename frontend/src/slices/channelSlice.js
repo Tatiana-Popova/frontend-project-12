@@ -6,11 +6,14 @@ export const changeCurrentChannel = createAction('changeCurrentChannel');
 const channelsAdapter = createEntityAdapter();
 const channelSlice = createSlice({
   name: 'channels',
-  initialState: channelsAdapter.getInitialState({loading: 'idle', error: null}),
+  initialState: channelsAdapter.getInitialState({loading: 'idle', error: null, notification: null}),
   reducers: {
     addChannel: channelsAdapter.addOne,
     removeChannel: channelsAdapter.removeOne,
     renameChannel: channelsAdapter.setOne,
+    addError (state, action) {
+      console.log(action.payload, action);
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -29,9 +32,8 @@ const channelSlice = createSlice({
         state.error = null
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
-        console.log('ОШИБОЧКА', action.error);
-
         state.loading = 'failed';
+        console.log('rejected', action.error);
         state.error = action.error
       })
       .addCase(changeCurrentChannel, (state, action) => {

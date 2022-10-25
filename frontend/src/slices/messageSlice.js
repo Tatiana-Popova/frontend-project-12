@@ -1,4 +1,4 @@
-import { current, createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { current, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { fetchInitialData } from "../components/Chat";
 
 const messagesAdapter = createEntityAdapter();
@@ -7,10 +7,6 @@ const messageSlice = createSlice({
   initialState: messagesAdapter.getInitialState({loading: 'idle', error: null}),
   reducers: {
     addMessage: messagesAdapter.addOne,
-    addNetworkError(state, action) {
-      state.loading = 'failed';
-      state.error = action;
-    } ,
     removeMessages(state, action) {
       const channelId = action.payload;
       const messagesByChannelId = Object.values(current(state).entities)

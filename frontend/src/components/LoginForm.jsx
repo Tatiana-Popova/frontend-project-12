@@ -8,9 +8,12 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes';
 import { useTranslation } from 'react-i18next';
+import { actions as channelActions } from '../slices/channelSlice';
+import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const auth = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef();
@@ -32,10 +35,12 @@ const LoginForm = () => {
         auth.logIn();
         navigate('/');
       } catch (err) {
-        if (axios.isAxiosError(err) || err.response.status === 401) {
-          formik.errors.password = t('wrongNameOrPassword');
+        if (err.response.status === 401) {
+          formik.errors.password = t('errors.wrongNameOrPassword');
           inputRef.current.select();
           return;
+        } else {
+          dispatch(channelActions(err.code))
         }
         throw err;
       }

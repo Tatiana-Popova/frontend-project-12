@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { changeCurrentChannel } from '../slices/channelSlice.js';
 import { useTranslation } from 'react-i18next';
+import { toast } from "react-toastify";
 
 const AddChannel = (props) => {
   const { t } = useTranslation();
@@ -17,8 +18,14 @@ const AddChannel = (props) => {
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
     const channel = { id: _.uniqueId(), name: values.body, removable: true, isCurrent: true};
-    socket.emitNewChannel(channel);
-    dispatch(changeCurrentChannel({reason: 'new', channelIdToChange: channel.id})) 
+    try {
+      socket.emitNewChannel(channel);
+      dispatch(changeCurrentChannel({reason: 'new', channelIdToChange: channel.id})) ;
+      toast.success(t('channelCreating.success'));
+    } catch (error) {
+      toast.error(t('channelCreating.error'));
+    }
+    
     onHide();
   };
 

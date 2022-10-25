@@ -9,6 +9,19 @@ export default {
       pageIsNotFounded: 'Страница не найдена',
       mustBeUniq: 'Должно быть уникальным',
       wrongNameOrPassword: 'Неверные имя пользователя или пароль',
+      networkError: 'Ошибка соединения'
+    },
+    channelCreating: {
+      success: 'Канал создан!',
+      error: 'Ошибка',
+    },
+    channelRemoving: {
+      success: 'Канал удален!',
+      error: 'Ошибка',
+    },
+    channelRenaming: {
+      success: 'Канал переименован!',
+      error: 'Ошибка',
     },
     exit: 'Выйти',
     enter: 'Войти',

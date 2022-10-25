@@ -6,6 +6,7 @@ import { Modal, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
+import { toast } from "react-toastify";
 
 const RenameChannel = (props) => {
   const { t } = useTranslation();
@@ -14,7 +15,12 @@ const RenameChannel = (props) => {
   const existingChannelsNames = existingСhannels.map(channel => channel.name);
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
-    socket.emitRenameChannel({ id: modalInfo.item.id, name: values.body});
+    try {
+      socket.emitRenameChannel({ id: modalInfo.item.id, name: values.body});
+      toast.success(t('channelRenaming.success'));
+    } catch (error) {
+      toast.error(t('channelRenaming.error'));
+    }
     onHide();
   };
 
