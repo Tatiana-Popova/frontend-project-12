@@ -8,16 +8,20 @@ import UseSocket from '../hooks/UseSocket.jsx';
 import { changeCurrentChannel } from '../slices/channelSlice.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from "react-toastify";
+import filter from 'leo-profanity';
 
 const AddChannel = (props) => {
   const { t } = useTranslation();
+  filter.loadDictionary('ru');
+  filter.add(filter.getDictionary('en'));
   const socket = UseSocket();
   const dispatch = useDispatch();
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
   const existingChannelsNames = existingСhannels.map(channel => channel.name);
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
-    const channel = { id: _.uniqueId(), name: values.body, removable: true, isCurrent: true};
+    const filteredChannelName = filter.clean(values.body);
+    const channel = { id: _.uniqueId(), name: filteredChannelName, removable: true, isCurrent: true};
     try {
       socket.emitNewChannel(channel);
       dispatch(changeCurrentChannel({reason: 'new', channelIdToChange: channel.id})) ;

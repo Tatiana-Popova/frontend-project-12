@@ -7,16 +7,20 @@ import { useSelector } from 'react-redux';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
 import { toast } from "react-toastify";
+import filter from 'leo-profanity';
 
 const RenameChannel = (props) => {
   const { t } = useTranslation();
+  filter.loadDictionary('ru');
+  filter.add(filter.getDictionary('en'));
   const socket = UseSocket();
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
   const existingChannelsNames = existingСhannels.map(channel => channel.name);
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
     try {
-      socket.emitRenameChannel({ id: modalInfo.item.id, name: values.body});
+      const filteredChannelName = filter.clean(values.body);
+      socket.emitRenameChannel({ id: modalInfo.item.id, name: filteredChannelName});
       toast.success(t('channelRenaming.success'));
     } catch (error) {
       toast.error(t('channelRenaming.error'));

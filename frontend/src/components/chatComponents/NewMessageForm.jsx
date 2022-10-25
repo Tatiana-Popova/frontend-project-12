@@ -5,10 +5,13 @@ import UseSocket from '../../hooks/UseSocket.jsx';
 import { useSelector } from "react-redux";
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 const NewMessageForm = ({currentChannel}) => {
   const { t } = useTranslation();
   const socket = UseSocket();
+  filter.loadDictionary('ru');
+  filter.add(filter.getDictionary('en'));
   const [newMessageInput, setNewMessageInput] = useState('');
   const inputRef = useRef();
   const sendButtonRef = useRef();
@@ -26,9 +29,11 @@ const NewMessageForm = ({currentChannel}) => {
     },
     onSubmit: (values, {resetForm}) => {
       const { newMessage } = values;
+      const filteredMessage = filter.clean(newMessage);
       const { username } = JSON.parse(localStorage.getItem('userId'));
       const channelId = currentChannel.id;
-      socket.emitMessage({body: newMessage, channelId, username});
+      console.log('newMessage', newMessage, 'filteredMessage', filteredMessage);
+      socket.emitMessage({body: filteredMessage, channelId, username});
       resetForm({values: ''});
       setNewMessageInput('');
     },
