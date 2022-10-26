@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm.jsx";
 import Chat from "./Chat.jsx"
-import NotFound from "./notFound.jsx";
+import NotFound from "./NotFound.jsx";
 import NavBar from "./NavBar.jsx";
 import {
   BrowserRouter as Router,
@@ -11,15 +11,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import AuthContext from '../contexts/index.jsx';
-import { useDispatch, useSelector } from "react-redux";
 import SocketContext from "../contexts/SocketContext.jsx";
-import { Link } from 'react-router-dom';
-import { actions as messageActions } from '../slices/messageSlice';
 import SignUpForm from "./SignUpForm.jsx";
-import { Button, Container, Navbar } from "react-bootstrap";
-import { fetchInitialData } from "./Chat.jsx";
-import useAuth from "../hooks/index.jsx";
-import { actions as channelActions } from '../slices/channelSlice';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
