@@ -1,6 +1,8 @@
 
 import ru from './ru';
 
-export default {
+const languages = {
   ru,
 };
+
+export default languages;

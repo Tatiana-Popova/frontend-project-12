@@ -24,7 +24,7 @@ const Channels = () => {
     } else if (channelStateErrorCode) {
       toast.error(t('errors.networkError'));
     }
-  }, [channelStateErrorCode]);
+  }, [channelStateErrorCode, auth, t, navigate]);
 
  
   const dispatch = useDispatch();

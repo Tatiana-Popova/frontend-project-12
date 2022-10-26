@@ -1,4 +1,4 @@
-export default {
+const ru =  {
   translation: {
     errors: {
       required: 'Обязательное поле', 
@@ -46,3 +46,5 @@ export default {
     areYouSure: 'Уверены?',
   },
 };
+
+export default ru;

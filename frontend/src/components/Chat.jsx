@@ -4,11 +4,8 @@ import Messages from "./chatComponents/Messages.jsx";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import routes from "../routes.js";
 import axios from "axios";
-import useAuth from "../hooks/index.jsx";
-import { useNavigate, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Container, Row } from "react-bootstrap";
-import { useTranslation } from 'react-i18next';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
