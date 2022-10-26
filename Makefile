@@ -1,17 +1,27 @@
-lint-frontend:
-	make -C frontend lint
+# start-frontend:
+#	 make -C frontend start
+#
+# start-backend:
+#	 npx start-server
+#
+# start:
+#	 make start-backend & make start-frontend
+
+
+deploy:
+	railway up
 
 install:
 	npm ci
 
-start-frontend:
-	make -C frontend start
+lint:
+	npx eslint .
 
-start-backend:
-	npx start-server
+publish:
+	npm publish
 
-deploy:
-	git push heroku main
+build:
+	npm run build
 
 start:
-	make start-backend & make start-frontend
+	npm run start
