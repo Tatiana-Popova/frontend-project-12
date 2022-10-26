@@ -7,9 +7,14 @@ import { actions as channelActions, changeCurrentChannel } from './slices/channe
 import { Provider as RollbarProvider, ErrorBoundary} from '@rollbar/react';
 
 const rollbarConfig = {
-  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
-  environment: 'production',
-};
+  accessToken: process.env.ACCESSTOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: 'production',
+  },
+}
+
 const Init = (socket) => {
   socket.on('newMessage', (data) => {
     store.dispatch(messageActions.addMessage(data));
