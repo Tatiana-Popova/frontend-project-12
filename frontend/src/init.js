@@ -6,6 +6,8 @@ import { actions as messageActions } from './slices/messageSlice';
 import { actions as channelActions, changeCurrentChannel } from './slices/channelSlice';
 import { Provider as RollbarProvider, ErrorBoundary} from '@rollbar/react';
 
+process.env.ACCESSTOKEN = 'da9661b843cc4d89b7c9451c0da46ae6';
+
 const rollbarConfig = {
   accessToken: process.env.ACCESSTOKEN,
   captureUncaught: true,
