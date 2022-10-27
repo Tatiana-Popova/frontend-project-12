@@ -6,10 +6,10 @@ import { actions as messageActions } from './slices/messageSlice';
 import { actions as channelActions, changeCurrentChannel } from './slices/channelSlice';
 import { Provider as RollbarProvider, ErrorBoundary} from '@rollbar/react';
 
-process.env.ACCESSTOKEN = 'da9661b843cc4d89b7c9451c0da46ae6';
+console.log('process.env is', process.env.ACCESSTOKEN);
 
-const rollbarConfig = {
-  accessToken: process.env.ACCESSTOKEN,
+const _rollbarConfig = {
+  accessToken: '9e32ac7a1cb24d97a730d404c5ec8682',
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {
@@ -34,7 +34,7 @@ const Init = (socket) => {
   })
   
   return (
-    <RollbarProvider config={rollbarConfig}>
+    <RollbarProvider config={_rollbarConfig}>
       <ErrorBoundary>
         <Provider store={store}>
           <App socket={socket}/>
