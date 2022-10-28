@@ -52,6 +52,7 @@ const NewMessageForm = ({currentChannel}) => {
           onBlur={formik.handleBlur} 
           placeholder={t('enterAMessage')} 
           id="newMessage" 
+          aria-label={t('newMessage')}
           className="border-0 p-0 ps-2 form-control"
           ref={inputRef}
         />

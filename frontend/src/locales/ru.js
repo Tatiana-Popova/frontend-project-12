@@ -44,6 +44,7 @@ const ru =  {
     renameChannel: 'Переименовать канал',
     deleteChannel: 'Удалить канал',
     areYouSure: 'Уверены?',
+    newMessage: 'Новое сообщение'
   },
 };
 
