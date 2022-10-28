@@ -32,7 +32,6 @@ const NewMessageForm = ({currentChannel}) => {
       const filteredMessage = filter.clean(newMessage);
       const { username } = JSON.parse(localStorage.getItem('userId'));
       const channelId = currentChannel.id;
-      console.log('newMessage', newMessage, 'filteredMessage', filteredMessage);
       socket.emitMessage({body: filteredMessage, channelId, username});
       resetForm({values: ''});
       setNewMessageInput('');

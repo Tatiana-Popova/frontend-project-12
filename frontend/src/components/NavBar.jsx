@@ -9,7 +9,6 @@ const NavBar = () => {
   const hasToken = localStorage.getItem('userId');
   const auth = useAuth();
   const navigate = useNavigate();
-  console.log('auth', auth);
   return (
     <Navbar className="shadow-sm navbar-expand-lg navbar-light bg-white">
       <Container>

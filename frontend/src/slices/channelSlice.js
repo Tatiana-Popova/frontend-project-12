@@ -11,9 +11,6 @@ const channelSlice = createSlice({
     addChannel: channelsAdapter.addOne,
     removeChannel: channelsAdapter.removeOne,
     renameChannel: channelsAdapter.setOne,
-    addError (state, action) {
-      console.log(action.payload, action);
-    }
   },
   extraReducers: (builder) => {
     builder
@@ -33,7 +30,6 @@ const channelSlice = createSlice({
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
         state.loading = 'failed';
-        console.log('rejected', action.error);
         state.error = action.error
       })
       .addCase(changeCurrentChannel, (state, action) => {
