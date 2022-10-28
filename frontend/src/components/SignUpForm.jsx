@@ -18,7 +18,7 @@ const SignUpForm = () => {
     initialValues: {
       userName: '',
       password: '', 
-      passwordСonfirmation: '',
+      passwordConfirmation: '',
     },
     validationSchema: yup.object({
       userName: yup.string().required(t('errors.required')).min(3, t('errors.fromTo')).max(20, t('errors.fromTo')),
@@ -27,8 +27,8 @@ const SignUpForm = () => {
         .string()
         .required(t('errors.required'))
         .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => {
-        return (value === firstPassword)
-      })
+          return (value === firstPassword)
+        })
     }),
     onSubmit: async(values) => {
       try {
@@ -73,8 +73,10 @@ const SignUpForm = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                     </Form.Control>
-                    <Form.Label htmlFor="userName">{t('username')}</Form.Label>      
-                    {formik.touched.userName && formik.errors.userName && <div class="invalid-tooltip">{formik.errors.userName}</div>}
+                    <Form.Label htmlFor="userName">{t('username')}</Form.Label>  
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {formik.touched.userName && formik.errors.userName}
+                    </Form.Control.Feedback>    
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
@@ -91,8 +93,10 @@ const SignUpForm = () => {
                       }
                       onBlur={formik.handleBlur}>
                     </Form.Control>
-                    <Form.Label htmlFor="userName">{t('password')}</Form.Label>
-                    {formik.touched.password && formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
+                    <Form.Label htmlFor="password">{t('password')}</Form.Label>
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {formik.touched.password && formik.errors.password}
+                    </Form.Control.Feedback>    
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
@@ -101,12 +105,14 @@ const SignUpForm = () => {
                       placeholder={t('passwordConfirmation')}
                       id="passwordConfirmation"
                       autocomplete="on"
-                      isInvalid={formik.touched.passwordСonfirmation && formik.errors.passwordConfirmation}
+                      isInvalid={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                     </Form.Control>
-                    <Form.Label htmlFor="userName">{t('passwordConfirmation')}</Form.Label>
-                    {(formik.touched.passwordСonfirmation || formik.errors.passwordConfirmation) && <div class="invalid-tooltip">{formik.errors.passwordConfirmation}</div>}
+                    <Form.Label htmlFor="passwordConfirmation">{t('passwordConfirmation')}</Form.Label>
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+                    </Form.Control.Feedback>    
                   </Form.Group>
                   <Button type="Submit" className="w-100 mb-3 btn btn-outline-primary btn-light">{t('register')}</Button>
                 </fieldset>

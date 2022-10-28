@@ -70,7 +70,9 @@ const LoginForm = () => {
                       isInvalid={formik.touched.username && formik.errors.username}
                       ref={inputRef}/>
                     <Form.Label className="form-label" htmlFor="username">{t('yourNick')}</Form.Label> 
-                    {formik.touched.username && formik.errors.username && <div class="invalid-tooltip">{formik.errors.username}</div>}
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {formik.touched.username && formik.errors.username}
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
                     <Form.Control 
@@ -84,7 +86,9 @@ const LoginForm = () => {
                       isInvalid={formik.errors.password}
                       className="form-control"/>
                     <Form.Label className="form-label" htmlFor="password">{t('password')}</Form.Label>
-                    {formik.touched.password && formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {formik.touched.password && formik.errors.password}
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Button type="Submit" className="w-100 mb-3 btn-outline-primary btn-light">{t('enter')}</Button>
                 </fieldset>
