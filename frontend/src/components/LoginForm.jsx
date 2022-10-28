@@ -67,10 +67,10 @@ const LoginForm = () => {
                       placeholder={t('yourNick')}
                       id="username" 
                       className="form-control"
-                      isInvalid={formik.errors.username}
+                      isInvalid={formik.touched.username && formik.errors.username}
                       ref={inputRef}/>
                     <Form.Label className="form-label" htmlFor="username">{t('yourNick')}</Form.Label> 
-                    {formik.errors.username && <div class="invalid-tooltip">{formik.errors.username}</div>}
+                    {formik.touched.username && formik.errors.username && <div class="invalid-tooltip">{formik.errors.username}</div>}
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
                     <Form.Control 
@@ -84,7 +84,7 @@ const LoginForm = () => {
                       isInvalid={formik.errors.password}
                       className="form-control"/>
                     <Form.Label className="form-label" htmlFor="password">{t('password')}</Form.Label>
-                    {formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
+                    {formik.touched.password && formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
                   </Form.Group>
                   <Button type="Submit" className="w-100 mb-3 btn-outline-primary btn-light">{t('enter')}</Button>
                 </fieldset>

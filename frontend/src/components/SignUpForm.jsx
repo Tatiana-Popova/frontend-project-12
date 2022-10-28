@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Image, Container, Col, Row, Card } from 'react-bootstrap';
 import avatar_1 from '../assets/avatar_1.jpg';
 import * as yup from 'yup';
@@ -46,7 +46,12 @@ const SignUpForm = () => {
         }
       };
     }
-  })
+  });
+
+  useEffect(() => {
+    formik.validateField(formik.values.username);
+  }, []);
+
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -64,12 +69,12 @@ const SignUpForm = () => {
                       value={formik.values.userName}
                       placeholder={t('username')} 
                       id="userName"
-                      isInvalid={formik.errors.userName}
+                      isInvalid={formik.touched.userName && formik.errors.userName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                     </Form.Control>
                     <Form.Label htmlFor="userName">{t('username')}</Form.Label>      
-                    {formik.errors.userName && <div class="invalid-tooltip">{formik.errors.userName}</div>}
+                    {formik.touched.userName && formik.errors.userName && <div class="invalid-tooltip">{formik.errors.userName}</div>}
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
@@ -78,7 +83,7 @@ const SignUpForm = () => {
                       placeholder={t('password')}
                       id="password"
                       autocomplete="on"
-                      isInvalid={formik.errors.password}
+                      isInvalid={formik.touched.password && formik.errors.password}
                       onChange = {(e) => {
                         setFirstPassword(e.target.value);
                         formik.handleChange(e)
@@ -87,7 +92,7 @@ const SignUpForm = () => {
                       onBlur={formik.handleBlur}>
                     </Form.Control>
                     <Form.Label htmlFor="userName">{t('password')}</Form.Label>
-                    {formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
+                    {formik.touched.password && formik.errors.password && <div class="invalid-tooltip">{formik.errors.password}</div>}
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
@@ -96,12 +101,12 @@ const SignUpForm = () => {
                       placeholder={t('passwordConfirmation')}
                       id="passwordConfirmation"
                       autocomplete="on"
-                      isInvalid={formik.errors.passwordConfirmation}
+                      isInvalid={formik.touched.passwordСonfirmation && formik.errors.passwordConfirmation}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                     </Form.Control>
                     <Form.Label htmlFor="userName">{t('passwordConfirmation')}</Form.Label>
-                    {formik.errors.passwordConfirmation && <div class="invalid-tooltip">{formik.errors.passwordConfirmation}</div>}
+                    {(formik.touched.passwordСonfirmation || formik.errors.passwordConfirmation) && <div class="invalid-tooltip">{formik.errors.passwordConfirmation}</div>}
                   </Form.Group>
                   <Button type="Submit" className="w-100 mb-3 btn btn-outline-primary btn-light">{t('register')}</Button>
                 </fieldset>

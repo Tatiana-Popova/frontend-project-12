@@ -66,7 +66,7 @@ const RenameChannel = (props) => {
               data-testid="input-body"
               name="body"
               className='mb-2 form-control'
-              isInvalid={formik.errors.body}
+              isInvalid={formik.touched.body && formik.errors.body}
             />
             <Form.Label className="visually-hidden" htmlFor='body'>{t('channelName')}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
