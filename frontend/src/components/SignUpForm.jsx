@@ -50,6 +50,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     formik.validateField(formik.values.username);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

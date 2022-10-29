@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Modal, Form } from 'react-bootstrap';
+import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
@@ -72,8 +72,8 @@ const RenameChannel = (props) => {
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <input type="button" className="me-2 btn btn-secondary" value={t('cancel')} onClick={onHide}/>
-            <input type="submit" className="btn btn-primary" value={t('send')} />
+            <Button className="me-2 btn-secondary" value={t('cancel')} onClick={onHide}/>
+            <Button type="submit" className="btn-primary" value={t('send')} />
           </div>
         
         </form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
 import { toast } from "react-toastify";
@@ -35,8 +35,8 @@ const RemoveChannel = (props) => {
         <form onSubmit={formik.handleSubmit}>
             <p class="lead">{t('areYouSure')}</p>
           <div className="d-flex justify-content-end">
-            <input type="button" className="me-2 btn btn-secondary" value={t('cancel')} onClick={onHide}/>
-            <input type="submit" className="btn btn-danger" value={t('send')} />
+            <Button className="me-2 btn-secondary" value={t('cancel')} onClick={onHide}/>
+            <Button type="submit" className="btn-danger" value={t('send')} />
           </div>
         </form>
       </Modal.Body>
