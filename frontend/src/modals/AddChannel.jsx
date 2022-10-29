@@ -76,8 +76,8 @@ const AddChannel = (props) => {
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <Button className="me-2 btn btn-secondary" value={t('cancel')} onClick={onHide}/>
-            <Button type="submit" className="btn btn-primary" value={t('send')} />
+            <Button className="me-2 btn btn-secondary" onClick={onHide}>{t('cancel')}</Button>
+            <Button type="submit" className="btn btn-primary">{t('send')}</Button>
           </div>
         </form>
       </Modal.Body>
