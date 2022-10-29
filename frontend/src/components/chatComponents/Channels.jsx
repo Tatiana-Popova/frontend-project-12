@@ -65,7 +65,9 @@ const Channels = () => {
                     <span className="me-1">#</span>
                       {channel.name}
                     </Button>
-                  <Dropdown.Toggle split className={cn({'btn-secondary': channel.isCurrent}, {'btn-light': !channel.isCurrent})}/>
+                  <Dropdown.Toggle split className={cn({'btn-secondary': channel.isCurrent}, {'btn-light': !channel.isCurrent})}>
+                    <span class="visually-hidden">{t('channelManagement')}</span>
+                  </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={ () => showModal('removingChannel', channel) } eventKey="1">{t('delete')}</Dropdown.Item>
                     <Dropdown.Item onClick={ () => showModal('renamingChannel', channel) } eventKey="2">{t('rename')}</Dropdown.Item>
