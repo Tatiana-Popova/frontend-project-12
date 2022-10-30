@@ -16,7 +16,7 @@ const ru =  {
       error: 'Ошибка',
     },
     channelRemoving: {
-      success: 'Канал удален!',
+      success: 'Канал удалён!',
       error: 'Ошибка',
     },
     channelRenaming: {
