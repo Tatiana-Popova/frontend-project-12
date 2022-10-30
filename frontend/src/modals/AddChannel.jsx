@@ -69,6 +69,7 @@ const AddChannel = (props) => {
               value={formik.values.body}
               data-testid="input-body"
               name="body"
+              id="body"
               className='mb-2 form-control'
               isInvalid={formik.touched.body && formik.errors.body}
             />
