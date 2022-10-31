@@ -1,10 +1,10 @@
 import React from 'react';
-import App from './components/App';
 import { Provider } from 'react-redux';
+import { Provider as RollbarProvider, ErrorBoundary} from '@rollbar/react';
+import App from './components/App';
 import store from './slices/index.js'
 import { actions as messageActions } from './slices/messageSlice';
 import { actions as channelActions, changeCurrentChannel } from './slices/channelSlice';
-import { Provider as RollbarProvider, ErrorBoundary} from '@rollbar/react';
 
 console.log('process.env is', process.env.ACCESSTOKEN);
 
@@ -15,7 +15,7 @@ const _rollbarConfig = {
   payload: {
     environment: 'production',
   },
-}
+};
 
 const Init = (socket) => {
   socket.on('newMessage', (data) => {
@@ -31,7 +31,7 @@ const Init = (socket) => {
   });
   socket.on('renameChannel', (data) => {
     store.dispatch(channelActions.renameChannel(data));
-  })
+  });
   
   return (
     <RollbarProvider config={_rollbarConfig}>
