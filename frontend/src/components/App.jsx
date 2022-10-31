@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import LoginForm from "./LoginForm.jsx";
-import Chat from "./Chat.jsx"
-import NotFound from "./NotFound.jsx";
-import NavBar from "./NavBar.jsx";
+import React, { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import LoginForm from './LoginForm.jsx';
+import Chat from './Chat.jsx'
+import NotFound from './NotFound.jsx';
+import NavBar from './NavBar.jsx';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom";
+} from 'react-router-dom';
 import AuthContext from '../contexts/index.jsx';
-import SocketContext from "../contexts/SocketContext.jsx";
-import SignUpForm from "./SignUpForm.jsx";
-import { ToastContainer } from 'react-toastify';
+import SocketContext from '../contexts/SocketContext.jsx';
+import SignUpForm from './SignUpForm.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthProvider = ({ children }) => {
@@ -38,52 +38,53 @@ const PrivateRoute = ({ children }) => {
   );
 };
 
-const SocketProvider = ({socket, children}) => {
+const SocketProvider = ({ socket, children }) => {
   const emitMessage = (params) => {
     socket.emit('newMessage', params);
-  }
+  };
   const emitNewChannel = (params) => {
-    socket.emit('newChannel', params)
+    socket.emit('newChannel', params);
   };
   const emitRemoveChannel = (channelId) => {
     socket.emit('removeChannel', channelId);
-  }
+  };
   const emitRenameChannel = (params) => {
-    socket.emit('renameChannel', params)
-  }
+    socket.emit('renameChannel', params);
+  };
   return (
-    <SocketContext.Provider value={{emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel}} >
-      {children}
+    <SocketContext.Provider 
+      value= {
+        { emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel }
+      }>
+      { children }
     </SocketContext.Provider>
-  )
+  );
 };
 
-const App = ({socket}) => {  
-  return (
-    <SocketProvider socket={socket}>
-      <AuthProvider>
-        <Router>
-          <div className="d-flex flex-column h-100">
-            <NavBar/>
-            <Routes>
-              <Route
-                path="/"
-                element={(
-                  <PrivateRoute>
-                    <Chat />
-                  </PrivateRoute>
-                )}
-              />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="*" element={<NotFound />} />
-              <Route path="/signup" element={<SignUpForm />}/>
-            </Routes>
-          </div>
-          <ToastContainer/>
-        </Router>
-      </AuthProvider>
-    </SocketProvider>
-  )
-};
+const App = ({ socket }) => (
+  <SocketProvider socket={socket}>
+    <AuthProvider>
+      <Router>
+        <div className="d-flex flex-column h-100">
+          <NavBar/>
+          <Routes>
+            <Route
+              path="/"
+              element={(
+                <PrivateRoute>
+                  <Chat />
+                </PrivateRoute>
+              )}
+            />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/signup" element={<SignUpForm />} />
+          </Routes>
+        </div>
+        <ToastContainer/>
+      </Router>
+    </AuthProvider>
+  </SocketProvider>
+);
 
 export default App;

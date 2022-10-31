@@ -16,7 +16,7 @@ const channelSlice = createSlice({
     builder
       .addCase(fetchInitialData.pending, (state) => {
         state.loading = 'loading';
-        state.error = null
+        state.error = null;
       })  
       .addCase(fetchInitialData.fulfilled, (state, action) => {
         const { channels, currentChannelId } = action.payload;
@@ -26,11 +26,11 @@ const channelSlice = createSlice({
         })
         channelsAdapter.addMany(state, markedAsCurrentChannels);    
         state.loading = 'idle';
-        state.error = null
+        state.error = null;
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
         state.loading = 'failed';
-        state.error = action.error
+        state.error = action.error;
       })
       .addCase(changeCurrentChannel, (state, action) => {
         const reasonToChange = action.payload.reason;
@@ -45,7 +45,7 @@ const channelSlice = createSlice({
               const generalChannelId = channels.find((channel) => channel.name === 'general').id;
               channelsToUpdate = channels.map((channel) => {
                 const isCurrent = (channel.id === generalChannelId);
-                return {...channel, isCurrent};
+                return { ...channel, isCurrent };
               })
             }
             break;
@@ -61,8 +61,8 @@ const channelSlice = createSlice({
           default: break;
         }
         channelsAdapter.setAll(state, channelsToUpdate);
-      })
-  }
+      });
+  },
 })
 export const {actions} = channelSlice;
 export default channelSlice.reducer;

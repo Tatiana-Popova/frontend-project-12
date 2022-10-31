@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
+import UseSocket from '../hooks/UseSocket.jsx';
 
 const RenameChannel = (props) => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ const RenameChannel = (props) => {
       toast.success(t('channelRenaming.success'));
     } catch (error) {
       toast.error(t('channelRenaming.error'));
-    }
+    };
     onHide();
   };
 
@@ -38,8 +38,8 @@ const RenameChannel = (props) => {
         .string()
         .required(t('errors.required'))
         .test('uniq', t('errors.mustBeUniq'), (value) => {
-          return (!existingChannelsNames.includes(value))
-        })
+          return (!existingChannelsNames.includes(value));
+        }),
     }),
   });
 

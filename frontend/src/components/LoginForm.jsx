@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef} from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import avatar from '../assets/avatar.jpg';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../routes';
 import { useTranslation } from 'react-i18next';
 import { actions as channelActions } from '../slices/channelSlice';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -43,9 +43,9 @@ const LoginForm = () => {
           dispatch(channelActions(err.code))
         }
         throw err;
-      }
+      };
     }
-  })
+  });
   
   return (
     <Container fluid className="h-100">
@@ -104,7 +104,7 @@ const LoginForm = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
 export default LoginForm;

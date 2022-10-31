@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Button, Modal } from 'react-bootstrap';
-import UseSocket from '../hooks/UseSocket.jsx';
 import { useTranslation } from 'react-i18next';
 import { toast } from "react-toastify";
+import UseSocket from '../hooks/UseSocket.jsx';
 
 const RemoveChannel = (props) => {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ const RemoveChannel = (props) => {
       toast.success(t('channelRemoving.success'));
     } catch (error) {
       toast.error(t('channelRemoving.error'));
-    }
+    };
     onHide();
   };
 

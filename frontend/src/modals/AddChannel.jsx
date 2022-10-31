@@ -4,11 +4,11 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import UseSocket from '../hooks/UseSocket.jsx';
 import { changeCurrentChannel } from '../slices/channelSlice.js';
-import { useTranslation } from 'react-i18next';
-import { toast } from "react-toastify";
-import filter from 'leo-profanity';
 
 const AddChannel = (props) => {
   const { t } = useTranslation();
@@ -21,15 +21,19 @@ const AddChannel = (props) => {
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
     const filteredChannelName = filter.clean(values.body);
-    const channel = { id: _.uniqueId(), name: filteredChannelName, removable: true, isCurrent: true};
+    const channel = { 
+      id: _.uniqueId(), 
+      name: filteredChannelName, 
+      removable: true, 
+      isCurrent: true
+    };
     try {
       socket.emitNewChannel(channel);
-      dispatch(changeCurrentChannel({reason: 'new', channelIdToChange: channel.id})) ;
+      dispatch(changeCurrentChannel({ reason: 'new', channelIdToChange: channel.id })) ;
       toast.success(t('channelCreating.success'));
     } catch (error) {
       toast.error(t('channelCreating.error'));
-    }
-    
+    };
     onHide();
   };
 
@@ -42,8 +46,8 @@ const AddChannel = (props) => {
         .string()
         .required(t('errors.required'))
         .test('uniq', t('errors.mustBeUniq'), (value) => {
-          return (!existingChannelsNames.includes(value))
-        })
+          return (!existingChannelsNames.includes(value));
+        }),
     }),
   });
 

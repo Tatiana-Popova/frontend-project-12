@@ -1,17 +1,19 @@
-import React from "react";
-import { Col } from "react-bootstrap";
+import React from 'react';
+import { Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import NewMessageForm from "./NewMessageForm.jsx";
+import NewMessageForm from './NewMessageForm.jsx';
 
 const Messages = (socket) => {
+  const { t } = useTranslation();
   const channels = useSelector((state) => {
     return Object.values(state.channels.entities);
   });
   const currentChannel = (channels.find(channel => channel.isCurrent) ?? 1);
   const messages = useSelector((state) => {
-    return (Object.values(state.messages.entities))
+    return (Object.values(state.messages.entities));
   });
-  const filteredMessages = messages.filter((message) => message.channelId === currentChannel.id)
+  const filteredMessages = messages.filter((message) => message.channelId === currentChannel.id);
 
   return (
     <Col className="col p-0 h-100">
@@ -20,7 +22,7 @@ const Messages = (socket) => {
           <p className="m-0">
             <b># {currentChannel ? currentChannel.name : ''}</b>
           </p>
-          <span className="text-muted">{filteredMessages.length} сообщений</span>
+          <span className="text-muted">{filteredMessages.length} {t('messageLength')}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {
@@ -29,16 +31,16 @@ const Messages = (socket) => {
                 <div className="text-break mb-2">
                   <b>{message.username}</b>: {message.body}
                 </div>
-              )
+              );
             })
           }
         </div>
         <div className="mt-auto px-5 py-3">
-          {currentChannel && <NewMessageForm currentChannel={currentChannel}/>}
+          { currentChannel && <NewMessageForm currentChannel={currentChannel}/> }
         </div>
       </div>
     </Col>
-  )
+  );
 };
 
 export default Messages;

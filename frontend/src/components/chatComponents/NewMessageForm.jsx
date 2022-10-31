@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect} from "react";
-import { useFormik } from "formik";
+import React, { useState, useRef, useEffect} from 'react';
+import { useFormik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
 import UseSocket from '../../hooks/UseSocket.jsx';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -21,7 +21,7 @@ const NewMessageForm = ({currentChannel}) => {
   }, []);
   useEffect(() => {
     sendButtonRef.current.disabled = (newMessageInput === '');
-  }, [newMessageInput])
+  }, [newMessageInput]);
   
   const formik = useFormik({
     initialValues: {
@@ -32,11 +32,10 @@ const NewMessageForm = ({currentChannel}) => {
       const filteredMessage = filter.clean(newMessage);
       const { username } = JSON.parse(localStorage.getItem('userId'));
       const channelId = currentChannel.id;
-      socket.emitMessage({body: filteredMessage, channelId, username});
-      resetForm({values: ''});
+      socket.emitMessage({ body: filteredMessage, channelId, username });
+      resetForm({ values: '' });
       setNewMessageInput('');
     },
-    
   });
 
   const btnClass = cn('btn', 'btn-group-vertical', {'disabled': isDisabled });
@@ -62,7 +61,7 @@ const NewMessageForm = ({currentChannel}) => {
         </Button>
       </Form.Group>
     </Form>
-    )
+  );
 };
 
 export default NewMessageForm;

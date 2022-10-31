@@ -1,5 +1,5 @@
-import { current, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { fetchInitialData } from "../components/Chat";
+import { current, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { fetchInitialData } from '../components/Chat';
 
 const messagesAdapter = createEntityAdapter();
 const messageSlice = createSlice({
@@ -18,19 +18,19 @@ const messageSlice = createSlice({
     builder
       .addCase(fetchInitialData.pending, (state) => {
         state.loading = 'loading';
-        state.error = null
+        state.error = null;
       })
       .addCase(fetchInitialData.fulfilled, (state, action) => {
         const { messages } = action.payload;
         messagesAdapter.addMany(state, messages);    
         state.loading = 'idle';
-        state.error = null
+        state.error = null;
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
         state.loading = 'failed';
-        state.error = action.error
-      })
-  }
+        state.error = action.error;
+      });
+  },
 });
 
 export const {actions} = messageSlice;

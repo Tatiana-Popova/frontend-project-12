@@ -9,10 +9,15 @@ const NotFound = () => {
       <div className="text-center">
         <img alt={t('errors.pageIsNotFounded')} className="img-fluid h-25" src={avatar_not_found}/>
         <h1 className="h4 text-muted">{t('errors.pageIsNotFounded')}</h1>
-        <p className="text-muted">{t('youCanGo')} <a href="/">{t('toTheMainPage')}</a></p>
+        <p className="text-muted">
+          {t('youCanGo')}
+          <a href="/">
+            {t('toTheMainPage')}
+          </a>
+        </p>
       </div>
     </>
-    )
+  );
 };
 
 export default NotFound;

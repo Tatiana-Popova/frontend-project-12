@@ -46,6 +46,8 @@ const ru =  {
     areYouSure: 'Уверены?',
     newMessage: 'Новое сообщение',
     channelManagement: 'Управление каналом',
+    channels: 'Каналы',
+    messageLength: 'сообщений',
   },
 };
 

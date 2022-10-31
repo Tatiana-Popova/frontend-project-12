@@ -1,11 +1,11 @@
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Image, Container, Col, Row, Card } from 'react-bootstrap';
 import avatar_1 from '../assets/avatar_1.jpg';
 import * as yup from 'yup';
 import routes from "../routes";
 import axios from 'axios';
-import useAuth from "../hooks";
+import useAuth from '../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -33,8 +33,10 @@ const SignUpForm = () => {
     onSubmit: async(values) => {
       try {
         await axios.post(routes.signUp(), { username: values.userName, password: values.password});
-
-        const loginRes = await axios.post(routes.loginPath(), { username: values.userName, password: values.password});
+        const loginRes = await axios.post(
+          routes.loginPath(), 
+          { username: values.userName, password: values.password }
+        );
         localStorage.clear();
         localStorage.setItem('userId', JSON.stringify(loginRes.data));
         auth.logIn();
@@ -42,8 +44,8 @@ const SignUpForm = () => {
       }
       catch (error) {
         if (error.response.status === 409) {
-         formik.errors.userName = t('errors.usernameIsClaimed ');
-        }
+          formik.errors.userName = t('errors.usernameIsClaimed');
+        };
       };
     }
   });
@@ -58,9 +60,11 @@ const SignUpForm = () => {
       <Row className="justify-content-center align-content-center h-100">
         <Col md={8} xxl={6}>
           <Card className="shadow-sm">
-            <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+            <Card.Body 
+              className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5"
+            >
               <div>
-                <Image src={avatar_1} className="rounded-circle" alt="Регистрация"/>
+                <Image src={avatar_1} className="rounded-circle" alt={t('registration')}/>
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
                 <fieldset disabled={formik.isSubmitting}>
@@ -76,7 +80,7 @@ const SignUpForm = () => {
                     </Form.Control>
                     <Form.Label htmlFor="userName">{t('username')}</Form.Label>  
                     <Form.Control.Feedback type="invalid" tooltip>
-                      {formik.touched.userName && formik.errors.userName}
+                      { formik.touched.userName && formik.errors.userName }
                     </Form.Control.Feedback>    
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
@@ -96,7 +100,7 @@ const SignUpForm = () => {
                     </Form.Control>
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
-                      {formik.touched.password && formik.errors.password}
+                      { formik.touched.password && formik.errors.password }
                     </Form.Control.Feedback>    
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
@@ -112,10 +116,14 @@ const SignUpForm = () => {
                     </Form.Control>
                     <Form.Label htmlFor="passwordConfirmation">{t('passwordConfirmation')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
-                      {formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+                      { formik.touched.passwordConfirmation && formik.errors.passwordConfirmation }
                     </Form.Control.Feedback>    
                   </Form.Group>
-                  <Button type="Submit" className="w-100 mb-3 btn btn-outline-primary btn-light">{t('register')}</Button>
+                  <Button 
+                    type="Submit" 
+                    className="w-100 mb-3 btn btn-outline-primary btn-light">
+                      {t('register')}
+                  </Button>
                 </fieldset>
               </Form>
             </Card.Body>
@@ -123,7 +131,7 @@ const SignUpForm = () => {
         </Col>
       </Row>
     </Container>
-  )
+  );
 };
 
 export default SignUpForm;
