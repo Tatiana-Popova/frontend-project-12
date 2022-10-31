@@ -1,17 +1,17 @@
 import React from 'react';
-import Channels from './chatComponents/Channels.jsx';
-import Messages from './chatComponents/Messages.jsx';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import routes from '../routes.js';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'react-bootstrap';
+import Channels from './chatComponents/Channels.jsx';
+import Messages from './chatComponents/Messages.jsx';
+import routes from '../routes.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
   if (userId && userId.token) {
     return { Authorization: `Bearer ${userId.token}` };
-  };
+  }
   return {};
 };
 
@@ -19,8 +19,8 @@ export const fetchInitialData = createAsyncThunk(
   'fetchInitialData',
   async () => {
     const { data } = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
-    return data;  
-  }
+    return data;
+  },
 );
 
 const Chat = (socket) => {
@@ -33,6 +33,7 @@ const Chat = (socket) => {
         <Messages value={socket}/>
       </Row>
     </Container> 
-  )
-}
+  );
+};
+
 export default Chat;

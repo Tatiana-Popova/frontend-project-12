@@ -17,37 +17,35 @@ const AddChannel = (props) => {
   const socket = UseSocket();
   const dispatch = useDispatch();
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
-  const existingChannelsNames = existingСhannels.map(channel => channel.name);
+  const existingChannelsNames = existingСhannels.map((channel) => channel.name);
 
-  const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
+  const generateOnSubmit = ({ onHide }) => (values) => {
     const filteredChannelName = filter.clean(values.body);
-    const channel = { 
-      id: _.uniqueId(), 
-      name: filteredChannelName, 
-      removable: true, 
-      isCurrent: true
+    const channel = {
+      id: _.uniqueId(),
+      name: filteredChannelName,
+      removable: true,
+      isCurrent: true,
     };
     try {
       socket.emitNewChannel(channel);
-      dispatch(changeCurrentChannel({ reason: 'new', channelIdToChange: channel.id })) ;
+      dispatch(changeCurrentChannel({ reason: 'new', channelIdToChange: channel.id }));
       toast.success(t('channelCreating.success'));
     } catch (error) {
       toast.error(t('channelCreating.error'));
-    };
+    }
     onHide();
   };
 
   const { onHide } = props;
-  const formik = useFormik({ 
-    onSubmit: generateOnSubmit(props), 
+  const formik = useFormik({
+    onSubmit: generateOnSubmit(props),
     initialValues: { body: '' },
     validationSchema: yup.object({
       body: yup
         .string()
         .required(t('errors.required'))
-        .test('uniq', t('errors.mustBeUniq'), (value) => {
-          return (!existingChannelsNames.includes(value));
-        }),
+        .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value))
     }),
   });
 
@@ -74,10 +72,10 @@ const AddChannel = (props) => {
               data-testid="input-body"
               name="body"
               id="body"
-              className='mb-2 form-control'
+              className="mb-2 form-control"
               isInvalid={formik.touched.body && formik.errors.body}
             />
-            <Form.Label className="visually-hidden" htmlFor='body'>{t('channelName')}</Form.Label>
+            <Form.Label className="visually-hidden" htmlFor="body">{t('channelName')}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">

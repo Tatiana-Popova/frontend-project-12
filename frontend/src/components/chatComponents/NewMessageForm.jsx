@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
-import UseSocket from '../../hooks/UseSocket.jsx';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import UseSocket from '../../hooks/UseSocket.jsx';
 
-const NewMessageForm = ({currentChannel}) => {
+const NewMessageForm = ({ currentChannel }) => {
   const { t } = useTranslation();
   const socket = UseSocket();
   filter.loadDictionary('ru');
@@ -22,12 +22,12 @@ const NewMessageForm = ({currentChannel}) => {
   useEffect(() => {
     sendButtonRef.current.disabled = (newMessageInput === '');
   }, [newMessageInput]);
-  
+
   const formik = useFormik({
     initialValues: {
       newMessage: '',
     },
-    onSubmit: (values, {resetForm}) => {
+    onSubmit: (values, { resetForm }) => {
       const { newMessage } = values;
       const filteredMessage = filter.clean(newMessage);
       const { username } = JSON.parse(localStorage.getItem('userId'));
@@ -38,19 +38,19 @@ const NewMessageForm = ({currentChannel}) => {
     },
   });
 
-  const btnClass = cn('btn', 'btn-group-vertical', {'disabled': isDisabled });
+  const btnClass = cn('btn', 'btn-group-vertical', { disabled: isDisabled });
   return (
     <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
       <Form.Group className="input-group has-validation">
         <Form.Control
-          value = {formik.values.newMessage}
-          onChange = {(e) => {
+          value={formik.values.newMessage}
+          onChange={(e) => {
             setNewMessageInput(e.target.value);
             formik.handleChange(e);
           }}
-          onBlur={formik.handleBlur} 
-          placeholder={t('enterAMessage')} 
-          id="newMessage" 
+          onBlur={formik.handleBlur}
+          placeholder={t('enterAMessage')}
+          id="newMessage"
           aria-label={t('newMessage')}
           className="border-0 p-0 ps-2 form-control"
           ref={inputRef}

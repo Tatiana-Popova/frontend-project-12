@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import LoginForm from './LoginForm.jsx';
-import Chat from './Chat.jsx'
+import Chat from './Chat.jsx';
 import NotFound from './NotFound.jsx';
 import NavBar from './NavBar.jsx';
 import {
@@ -52,10 +52,12 @@ const SocketProvider = ({ socket, children }) => {
     socket.emit('renameChannel', params);
   };
   return (
-    <SocketContext.Provider 
-      value= {
+    <SocketContext.Provider
+      value=
+      {
         { emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel }
-      }>
+      }
+    >
       { children }
     </SocketContext.Provider>
   );

@@ -1,13 +1,21 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Image, Container, Col, Row, Card } from 'react-bootstrap';
-import avatar_1 from '../assets/avatar_1.jpg';
+import { 
+  Form, 
+  Button, 
+  Image, 
+  Container, 
+  Col, 
+  Row, 
+  Card 
+} from 'react-bootstrap';
 import * as yup from 'yup';
-import routes from "../routes";
 import axios from 'axios';
-import useAuth from '../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import useAuth from '../hooks';
+import routes from '../routes';
+import avatar1 from '../assets/avatar_1.jpg';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
@@ -17,7 +25,7 @@ const SignUpForm = () => {
   const formik = useFormik({
     initialValues: {
       userName: '',
-      password: '', 
+      password: '',
       passwordConfirmation: '',
     },
     validationSchema: yup.object({
@@ -26,28 +34,25 @@ const SignUpForm = () => {
       passwordConfirmation: yup
         .string()
         .required(t('errors.required'))
-        .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => {
-          return (value === firstPassword)
-        })
+        .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => (value === firstPassword))
     }),
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       try {
         await axios.post(routes.signUp(), { username: values.userName, password: values.password});
         const loginRes = await axios.post(
-          routes.loginPath(), 
-          { username: values.userName, password: values.password }
+          routes.loginPath(),
+          { username: values.userName, password: values.password },
         );
         localStorage.clear();
         localStorage.setItem('userId', JSON.stringify(loginRes.data));
         auth.logIn();
         navigate('/');
-      }
-      catch (error) {
+      } catch (error) {
         if (error.response.status === 409) {
           formik.errors.userName = t('errors.usernameIsClaimed');
-        };
-      };
-    }
+        }
+      }
+    },
   });
 
   useEffect(() => {
@@ -64,44 +69,46 @@ const SignUpForm = () => {
               className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5"
             >
               <div>
-                <Image src={avatar_1} className="rounded-circle" alt={t('registration')}/>
+                <Image src={avatar1} className="rounded-circle" alt={t('registration')} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
                 <fieldset disabled={formik.isSubmitting}>
                   <h1 className="text-center mb-4">{t('registration')}</h1>
                   <Form.Group className="form-floating mb-3">
-                    <Form.Control 
+                    <Form.Control
                       value={formik.values.userName}
-                      placeholder={t('username')} 
+                      placeholder={t('username')}
                       id="userName"
                       isInvalid={formik.touched.userName && formik.errors.userName}
                       onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}>
+                      onBlur={formik.handleBlur}
+                    >
                     </Form.Control>
-                    <Form.Label htmlFor="userName">{t('username')}</Form.Label>  
+                    <Form.Label htmlFor="userName">{t('username')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       { formik.touched.userName && formik.errors.userName }
-                    </Form.Control.Feedback>    
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
-                    <Form.Control 
+                    <Form.Control
                       type="password"
                       value={formik.values.password}
                       placeholder={t('password')}
                       id="password"
                       autocomplete="on"
                       isInvalid={formik.touched.password && formik.errors.password}
-                      onChange = {(e) => {
+                      onChange={(e) => {
                         setFirstPassword(e.target.value);
-                        formik.handleChange(e)
+                        formik.handleChange(e);
                         }
                       }
-                      onBlur={formik.handleBlur}>
+                      onBlur={formik.handleBlur}
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       { formik.touched.password && formik.errors.password }
-                    </Form.Control.Feedback>    
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control 
@@ -110,19 +117,24 @@ const SignUpForm = () => {
                       placeholder={t('passwordConfirmation')}
                       id="passwordConfirmation"
                       autocomplete="on"
-                      isInvalid={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+                      isInvalid={
+                        formik.touched.passwordConfirmation &&
+                        formik.errors.passwordConfirmation
+                      }
                       onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}>
+                      onBlur={formik.handleBlur}
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="passwordConfirmation">{t('passwordConfirmation')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       { formik.touched.passwordConfirmation && formik.errors.passwordConfirmation }
-                    </Form.Control.Feedback>    
+                    </Form.Control.Feedback>
                   </Form.Group>
-                  <Button 
+                  <Button
                     type="Submit" 
-                    className="w-100 mb-3 btn btn-outline-primary btn-light">
-                      {t('register')}
+                    className="w-100 mb-3 btn btn-outline-primary btn-light"
+                  >
+                    {t('register')} 
                   </Button>
                 </fieldset>
               </Form>

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import channelSlice from '../slices/channelSlice';
+import channelSlice from './channelSlice';
 import messageSlice from './messageSlice';
 
 const store =  configureStore({

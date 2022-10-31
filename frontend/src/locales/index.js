@@ -1,4 +1,3 @@
-
 import ru from './ru';
 
 const languages = {

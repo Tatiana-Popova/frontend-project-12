@@ -9,29 +9,20 @@ const messageSlice = createSlice({
     addMessage: messagesAdapter.addOne,
     removeMessages(state, action) {
       const channelId = action.payload;
-      const messagesByChannelId = Object.values(current(state).entities)
-      .filter((message) => message.channelId === channelId);
+      const messagesByChannelId = Object
+        .values(current(state).entities)
+        .filter((message) => message.channelId === channelId);
       messagesAdapter.removeMany(state, messagesByChannelId);
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchInitialData.pending, (state) => {
-        state.loading = 'loading';
-        state.error = null;
-      })
       .addCase(fetchInitialData.fulfilled, (state, action) => {
         const { messages } = action.payload;
         messagesAdapter.addMany(state, messages);    
-        state.loading = 'idle';
-        state.error = null;
       })
-      .addCase(fetchInitialData.rejected, (state, action) => {
-        state.loading = 'failed';
-        state.error = action.error;
-      });
   },
 });
 
-export const {actions} = messageSlice;
+export const { actions } = messageSlice;
 export default messageSlice.reducer;

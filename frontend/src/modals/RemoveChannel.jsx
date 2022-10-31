@@ -2,26 +2,26 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import UseSocket from '../hooks/UseSocket.jsx';
 
 const RemoveChannel = (props) => {
   const { t } = useTranslation();
   const socket = UseSocket();
 
-  const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
+  const generateOnSubmit = ({ modalInfo, onHide }) => () => {
     try {
       socket.emitRemoveChannel({ id: modalInfo.item.id });
       toast.success(t('channelRemoving.success'));
     } catch (error) {
       toast.error(t('channelRemoving.error'));
-    };
+    }
     onHide();
   };
 
   const { onHide } = props;
-  const formik = useFormik({ 
-    onSubmit: generateOnSubmit(props), 
+  const formik = useFormik({
+    onSubmit: generateOnSubmit(props),
     initialValues: {},
   });
 
@@ -33,7 +33,7 @@ const RemoveChannel = (props) => {
 
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-            <p class="lead">{t('areYouSure')}</p>
+          <p classname="lead">{t('areYouSure')}</p>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn-secondary" onClick={onHide}>{t('cancel')}</Button>
             <Button type="submit" className="btn-danger">{t('send')}</Button>

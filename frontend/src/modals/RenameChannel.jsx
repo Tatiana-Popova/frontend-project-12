@@ -14,7 +14,7 @@ const RenameChannel = (props) => {
   filter.add(filter.getDictionary('en'));
   const socket = UseSocket();
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
-  const existingChannelsNames = existingСhannels.map(channel => channel.name);
+  const existingChannelsNames = existingСhannels.map((channel) => channel.name);
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
     try {
@@ -23,23 +23,21 @@ const RenameChannel = (props) => {
       toast.success(t('channelRenaming.success'));
     } catch (error) {
       toast.error(t('channelRenaming.error'));
-    };
+    }
     onHide();
   };
 
   const { onHide } = props;
-  const previousName = props.modalInfo.item.name;
+  const {name} = props.modalInfo.item;
 
-  const formik = useFormik({ 
-    onSubmit: generateOnSubmit(props), 
-    initialValues: { body: previousName },
+  const formik = useFormik({
+    onSubmit: generateOnSubmit(props),
+    initialValues: { body: name },
     validationSchema: yup.object({
       body: yup
         .string()
         .required(t('errors.required'))
-        .test('uniq', t('errors.mustBeUniq'), (value) => {
-          return (!existingChannelsNames.includes(value));
-        }),
+        .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value))
     }),
   });
 
@@ -66,17 +64,16 @@ const RenameChannel = (props) => {
               data-testid="input-body"
               name="body"
               id="body"
-              className='mb-2 form-control'
+              className="mb-2 form-control"
               isInvalid={formik.touched.body && formik.errors.body}
             />
-            <Form.Label className="visually-hidden" htmlFor='body'>{t('channelName')}</Form.Label>
+            <Form.Label className="visually-hidden" htmlFor="body">{t('channelName')}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn-secondary" onClick={onHide}>{t('cancel')}</Button>
             <Button type="submit" className="btn-primary">{t('send')}</Button>
           </div>
-        
         </form>
       </Modal.Body>
     </Modal>

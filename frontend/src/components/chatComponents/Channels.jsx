@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { 
+  Dropdown, 
+  Button, 
+  Col, 
+  Nav,
+} from 'react-bootstrap';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
-import {changeCurrentChannel} from '../../slices/channelSlice';
+import { changeCurrentChannel } from '../../slices/channelSlice';
 import getModal from '../../modals/index.js';
-import { Dropdown, Button, Col, Nav } from 'react-bootstrap'
 import useAuth from '../../hooks';
 
 const Channels = () => {
@@ -37,7 +42,7 @@ const Channels = () => {
     const Component = getModal(modalInfo.type);
     return <Component modalInfo={modalInfo} onHide={hideModal} />;
   };
-  
+
   const channels = useSelector((state) => {
     return (Object.values(state.channels.entities))
   });
@@ -46,9 +51,10 @@ const Channels = () => {
     <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('channels')}</span>
-        <Button 
+        <Button
           className="p-0 text-primary btn btn-group-vertical btn-light"
-          onClick={ () => showModal('addingChannel') }>
+          onClick={() => showModal('addingChannel')}
+        >
           +
         </Button>
       </div>
@@ -58,71 +64,79 @@ const Channels = () => {
             return (
               <Nav.Item className="nav-item w-100">
                 <Dropdown className="d-flex dropdown btn-group">
-                  <Button 
+                  <Button
                     className={
-                    cn(
-                      'w-100',
-                      'rounded-0',
-                      'text-start', 
-                      {'btn-secondary': channel.isCurrent }, 
-                      {'btn-light': !channel.isCurrent}
+                      cn(
+                        'w-100',
+                        'rounded-0',
+                        'text-start', 
+                        { 'btn-secondary': channel.isCurrent }, 
+                        { 'btn-light': !channel.isCurrent },
                       )
-                    } 
+                    }
                     onClick={(e) => dispatch(
                       changeCurrentChannel(
                         { reason: 'changing', channelIdToChange: channel.id }
                       ))
-                    }>
+                    }
+                  >
                     <span className="me-1">#</span>
                       { channel.name }
-                    </Button>
-                  <Dropdown.Toggle split className={
+                  </Button>
+                  <Dropdown.Toggle 
+                    split 
+                    className={
                     cn(
-                      {'btn-secondary': channel.isCurrent},
-                      {'btn-light': !channel.isCurrent}
+                      { 'btn-secondary': channel.isCurrent },
+                      { 'btn-light': !channel.isCurrent },
                     )
-                  }>
+                    }
+                  >
                     <span class="visually-hidden">{t('channelManagement')}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item 
                       onClick={ () => showModal('removingChannel', channel) } 
-                      eventKey="1">{t('delete')}
+                      eventKey="1"
+                    >
+                      {t('delete')}
                     </Dropdown.Item>
                     <Dropdown.Item 
                       onClick={ () => showModal('renamingChannel', channel) } 
-                      eventKey="2">{t('rename')}
+                      eventKey="2"
+                    >
+                      {t('rename')}
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav.Item>
             );
-          } else {
-              return (
-                <Nav.Item className="nav-item w-100">
-                  <Button type="button" 
-                    className={
-                      cn(
-                        'w-100',
-                        'rounded-0',
-                        'text-start',
-                        {'btn-secondary': channel.isCurrent },
-                        {'btn-light': !channel.isCurrent}
-                      )
-                    }
-                    onClick={(e) => dispatch(
-                      changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id}))
-                    }
-                  >
-                    <span className="me-1">#</span>
-                    {channel.name}
-                  </Button>
-                </Nav.Item>
-              );
-            };
-        })};
+          }
+          return (
+            <Nav.Item className="nav-item w-100">
+              <Button type="button" 
+                className={
+                  cn(
+                    'w-100',
+                    'rounded-0',
+                    'text-start',
+                    { 'btn-secondary': channel.isCurrent },
+                    { 'btn-light': !channel.isCurrent },
+                  )
+                }
+                onClick={() => dispatch(
+                    changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id})
+                  )
+                }
+              >
+                <span className="me-1">#</span>
+                {channel.name}
+              </Button>
+            </Nav.Item>
+          )
+        })}
       </Nav>
-      { renderModal({ modalInfo, hideModal })} 
+      { renderModal({ modalInfo, hideModal }) }
     </Col>
   );
 };
