@@ -1,7 +1,7 @@
-const ru =  {
+const ru = {
   translation: {
     errors: {
-      required: 'Обязательное поле', 
+      required: 'Обязательное поле',
       fromTo: 'От 3 до 20 символов',
       noLess6: 'Не менее 6 символов',
       passwordsMustBeSame: 'Пароли должны совпадать',
@@ -9,7 +9,7 @@ const ru =  {
       pageIsNotFounded: 'Страница не найдена',
       mustBeUniq: 'Должно быть уникальным',
       wrongNameOrPassword: 'Неверные имя пользователя или пароль',
-      networkError: 'Ошибка соединения'
+      networkError: 'Ошибка соединения',
     },
     channelCreating: {
       success: 'Канал создан!',

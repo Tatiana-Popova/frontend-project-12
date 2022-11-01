@@ -19,7 +19,7 @@ const RenameChannel = (props) => {
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
     try {
       const filteredChannelName = filter.clean(values.body);
-      socket.emitRenameChannel({ id: modalInfo.item.id, name: filteredChannelName});
+      socket.emitRenameChannel({ id: modalInfo.item.id, name: filteredChannelName });
       toast.success(t('channelRenaming.success'));
     } catch (error) {
       toast.error(t('channelRenaming.error'));
@@ -28,7 +28,8 @@ const RenameChannel = (props) => {
   };
 
   const { onHide } = props;
-  const {name} = props.modalInfo.item;
+// eslint-disable-next-line react/destructuring-assignment
+  const { name } = props.modalInfo.item;
 
   const formik = useFormik({
     onSubmit: generateOnSubmit(props),
@@ -37,7 +38,7 @@ const RenameChannel = (props) => {
       body: yup
         .string()
         .required(t('errors.required'))
-        .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value))
+        .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value)),
     }),
   });
 

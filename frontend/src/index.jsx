@@ -9,5 +9,5 @@ const socket = io();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  Init(socket)
+  Init(socket),
 );

@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { 
-  Dropdown, 
-  Button, 
-  Col, 
+import {
+  Dropdown,
+  Button,
+  Col,
   Nav,
 } from 'react-bootstrap';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line import/no-cycle
 import { changeCurrentChannel } from '../../slices/channelSlice';
+// eslint-disable-next-line import/no-cycle
 import getModal from '../../modals/index.js';
 import useAuth from '../../hooks';
 
@@ -20,7 +22,7 @@ const Channels = () => {
   const navigate = useNavigate();
   const channelState = useSelector((state) => state.channels);
   const channelStateErrorCode = channelState.error?.code;
-
+  console.log('channelStateErrorCode', channelStateErrorCode)
   useEffect(() => {
     if (channelStateErrorCode === 'ERR_BAD_REQUEST') {
       auth.logOut();
@@ -35,7 +37,7 @@ const Channels = () => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
   const showModal = (type, item = null) => setModalInfo({ type, item });
-  const renderModal = ({ modalInfo, hideModal }) => {
+  const renderModal = ({ hideModal }) => {
     if (!modalInfo.type) {
       return null;
     }
@@ -43,9 +45,7 @@ const Channels = () => {
     return <Component modalInfo={modalInfo} onHide={hideModal} />;
   };
 
-  const channels = useSelector((state) => {
-    return (Object.values(state.channels.entities))
-  });
+  const channels = useSelector((state) => (Object.values(state.channels.entities)));
 
   return (
     <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
@@ -69,22 +69,22 @@ const Channels = () => {
                       cn(
                         'w-100',
                         'rounded-0',
-                        'text-start', 
-                        { 'btn-secondary': channel.isCurrent }, 
+                        'text-start',
+                        { 'btn-secondary': channel.isCurrent },
                         { 'btn-light': !channel.isCurrent },
                       )
                     }
-                    onClick={(e) => dispatch(
+                    onClick={() => dispatch(
                       changeCurrentChannel(
-                        { reason: 'changing', channelIdToChange: channel.id }
-                      ))
-                    }
+                        { reason: 'changing', channelIdToChange: channel.id },
+                      )
+                    )}
                   >
                     <span className="me-1">#</span>
-                      { channel.name }
+                    { channel.name }
                   </Button>
-                  <Dropdown.Toggle 
-                    split 
+                  <Dropdown.Toggle
+                    split
                     className={
                     cn(
                       { 'btn-secondary': channel.isCurrent },
@@ -92,17 +92,17 @@ const Channels = () => {
                     )
                     }
                   >
-                    <span class="visually-hidden">{t('channelManagement')}</span>
+                    <span className="visually-hidden">{t('channelManagement')}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item 
+                    <Dropdown.Item
                       onClick={ () => showModal('removingChannel', channel) } 
                       eventKey="1"
                     >
                       {t('delete')}
                     </Dropdown.Item>
-                    <Dropdown.Item 
-                      onClick={ () => showModal('renamingChannel', channel) } 
+                    <Dropdown.Item
+                      onClick={() => showModal('renamingChannel', channel)}
                       eventKey="2"
                     >
                       {t('rename')}
@@ -114,7 +114,8 @@ const Channels = () => {
           }
           return (
             <Nav.Item className="nav-item w-100">
-              <Button type="button" 
+              <Button
+                type="button"
                 className={
                   cn(
                     'w-100',
@@ -125,18 +126,17 @@ const Channels = () => {
                   )
                 }
                 onClick={() => dispatch(
-                    changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id})
-                  )
-                }
+                    changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id}),
+                )}
               >
                 <span className="me-1">#</span>
                 {channel.name}
               </Button>
             </Nav.Item>
-          )
+          );
         })}
       </Nav>
-      { renderModal({ modalInfo, hideModal }) }
+      { renderModal({ hideModal }) }
     </Col>
   );
 };

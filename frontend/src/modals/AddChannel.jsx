@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import UseSocket from '../hooks/UseSocket.jsx';
+// eslint-disable-next-line import/no-cycle
 import { changeCurrentChannel } from '../slices/channelSlice.js';
 
 const AddChannel = (props) => {
@@ -45,7 +46,7 @@ const AddChannel = (props) => {
       body: yup
         .string()
         .required(t('errors.required'))
-        .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value))
+        .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value)),
     }),
   });
 

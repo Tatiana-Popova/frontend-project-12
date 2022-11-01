@@ -17,18 +17,22 @@ const rollbarConfig = {
   },
 };
 
-const Init = (socket) => {
+const Init = (socket) => { 
+// eslint-disable-next-line react/destructuring-assignment
   socket.on('newMessage', (data) => {
     store.dispatch(messageActions.addMessage(data));
   });
+// eslint-disable-next-line react/destructuring-assignment
   socket.on('newChannel', (data) => {
     store.dispatch(channelActions.addChannel(data));
   });
+// eslint-disable-next-line react/destructuring-assignment
   socket.on('removeChannel', ({ id }) => {
+    store.dispatch(changeCurrentChannel({ reason: 'removing', channelId: id }));
     store.dispatch(channelActions.removeChannel(id));
     store.dispatch(messageActions.removeMessages(id));
-    store.dispatch(changeCurrentChannel({reason: 'removing'}));
   });
+// eslint-disable-next-line react/destructuring-assignment
   socket.on('renameChannel', (data) => {
     store.dispatch(channelActions.renameChannel(data));
   });

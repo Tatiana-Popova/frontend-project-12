@@ -33,7 +33,7 @@ const RemoveChannel = (props) => {
 
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          <p classname="lead">{t('areYouSure')}</p>
+          <p className="lead">{t('areYouSure')}</p>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn-secondary" onClick={onHide}>{t('cancel')}</Button>
             <Button type="submit" className="btn-danger">{t('send')}</Button>

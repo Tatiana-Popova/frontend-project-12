@@ -4,7 +4,7 @@ import { fetchInitialData } from '../components/Chat';
 const messagesAdapter = createEntityAdapter();
 const messageSlice = createSlice({
   name: 'messages',
-  initialState: messagesAdapter.getInitialState({loading: 'idle', error: null}),
+  initialState: messagesAdapter.getInitialState({ loading: 'idle', error: null }),
   reducers: {
     addMessage: messagesAdapter.addOne,
     removeMessages(state, action) {
@@ -19,8 +19,8 @@ const messageSlice = createSlice({
     builder
       .addCase(fetchInitialData.fulfilled, (state, action) => {
         const { messages } = action.payload;
-        messagesAdapter.addMany(state, messages);    
-      })
+        messagesAdapter.addMany(state, messages); 
+      });
   },
 });
 
