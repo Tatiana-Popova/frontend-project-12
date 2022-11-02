@@ -54,8 +54,8 @@ const SocketProvider = ({ socket, children }) => {
   return (
     <SocketContext.Provider
       value={
-        { 
-          emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel
+        {
+          emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel,
         }
       }
     >
