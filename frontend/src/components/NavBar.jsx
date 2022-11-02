@@ -15,9 +15,11 @@ const NavBar = () => {
         <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
         {(
           hasToken
-          && (<Button className="btn-primary" onClick={() => { auth.logOut(); navigate('/login'); }}>
-                {t('exit')}
-              </Button>)
+          && (
+            <Button className="btn-primary" onClick={() => { auth.logOut(); navigate('/login'); }}>
+              {t('exit')}
+            </Button>
+          )
         )}
       </Container>
     </Navbar>
