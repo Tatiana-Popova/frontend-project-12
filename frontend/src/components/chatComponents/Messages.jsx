@@ -17,8 +17,7 @@ const Messages = () => {
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
             <b>
-              # 
-              {currentChannel ? currentChannel.name : ''}
+              { `# ${ currentChannel ? currentChannel.name : '' }` }
             </b>
           </p>
           <span className="text-muted">
@@ -31,8 +30,7 @@ const Messages = () => {
             filteredMessages && filteredMessages.map((message) => (
               <div className="text-break mb-2" key={message.id}>
                 <b>{message.username}</b>
-                :
-                {message.body}
+                {`: ${message.body}`}
               </div>
             ))
           }

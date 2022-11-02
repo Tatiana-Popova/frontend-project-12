@@ -80,8 +80,7 @@ const Channels = () => {
                       )
                     )}
                   >
-                    <span className="me-1">#</span>
-                    { channel.name }
+                    { `# ${channel.name}` }
                   </Button>
                   <Dropdown.Toggle
                     split
