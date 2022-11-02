@@ -28,7 +28,7 @@ const RenameChannel = (props) => {
   };
 
   const { onHide } = props;
- // eslint-disable-next-line react/destructuring-assignment
+  // eslint-disable-next-line react/destructuring-assignment
   const { name } = props.modalInfo.item;
 
   const formik = useFormik({

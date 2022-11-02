@@ -2,13 +2,13 @@ import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { 
+import {
   Form,
   Button,
   Image,
   Container,
   Row,
-  Col, 
+  Col,
   Card,
 } from 'react-bootstrap';
 import axios from 'axios';

@@ -65,7 +65,7 @@ const SignUpForm = () => {
       <Row className="justify-content-center align-content-center h-100">
         <Col md={8} xxl={6}>
           <Card className="shadow-sm">
-            <Card.Body 
+            <Card.Body
               className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5"
             >
               <div>
@@ -82,8 +82,7 @@ const SignUpForm = () => {
                       isInvalid={formik.touched.userName && formik.errors.userName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                    >
-                    </Form.Control>
+                    />
                     <Form.Label htmlFor="userName">{t('username')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       { formik.touched.userName && formik.errors.userName }
@@ -100,11 +99,9 @@ const SignUpForm = () => {
                       onChange={(e) => {
                         setFirstPassword(e.target.value);
                         formik.handleChange(e);
-                        }
-                      }
+                      }}
                       onBlur={formik.handleBlur}
-                    >
-                    </Form.Control>
+                    />
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       { formik.touched.password && formik.errors.password }
@@ -118,9 +115,8 @@ const SignUpForm = () => {
                       id="passwordConfirmation"
                       autocomplete="on"
                       isInvalid={
-                        formik.touched.passwordConfirmation 
-                        &&
-                        formik.errors.passwordConfirmation
+                        formik.touched.passwordConfirmation
+                        && formik.errors.passwordConfirmation
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}

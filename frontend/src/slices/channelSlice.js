@@ -44,8 +44,8 @@ const channelSlice = createSlice({
             const { channelId } = action.payload;
             const currentChannelId = (channels.find((channel) => channel.isCurrent)).id;
             const generalChannelId = channels.find((channel) => channel.name === 'general').id;
-            const nextCurrentChannelId = 
-              (channelId === currentChannelId) ? generalChannelId : currentChannelId;
+            const nextCurrentChannelId = (channelId === currentChannelId)
+              ? generalChannelId : currentChannelId;
             console.log(nextCurrentChannelId, currentChannelId, generalChannelId);
             const channelsToUpdate = channels.map((channel) => {
               const isCurrent = (channel.id === nextCurrentChannelId);
