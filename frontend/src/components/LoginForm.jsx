@@ -2,7 +2,15 @@ import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Form, Button, Image, Container, Row, Col, Card } from 'react-bootstrap';
+import { 
+  Form,
+  Button,
+  Image,
+  Container,
+  Row,
+  Col, 
+  Card,
+} from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -53,13 +61,13 @@ const LoginForm = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <Col className="d-flex align-items-center justify-content-center">
-                <Image src={avatar} className="rounded-circle" alt="Войти"/>
+                <Image src={avatar} className="rounded-circle" alt="Войти" />
               </Col>
               <Col as={Form} md={6} mt={3} onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <fieldset disabled={formik.isSubmitting}>
                   <h1 className="text-center mb-4">{t('enter')}</h1>
-                  <Form.Group className="form-floating mb-3"> 
-                    <Form.Control 
+                  <Form.Group className="form-floating mb-3">
+                    <Form.Control
                       value={formik.values.username}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -67,7 +75,7 @@ const LoginForm = () => {
                       id="username"
                       className="form-control"
                       isInvalid={formik.touched.username && formik.errors.username}
-                      ref={inputRef} 
+                      ref={inputRef}
                     />
                     <Form.Label className="form-label" htmlFor="username">{t('yourNick')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
@@ -84,7 +92,7 @@ const LoginForm = () => {
                       type="password"
                       id="password"
                       isInvalid={formik.errors.password}
-                      className="form-control" 
+                      className="form-control"
                     />
                     <Form.Label className="form-label" htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
@@ -93,7 +101,7 @@ const LoginForm = () => {
                   </Form.Group>
                   <Button type="Submit" className="w-100 mb-3 btn-outline-primary btn-light">{t('enter')}</Button>
                 </fieldset>
-              </Col>                
+              </Col>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">

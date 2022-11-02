@@ -1,13 +1,13 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { 
-  Form, 
-  Button, 
-  Image, 
-  Container, 
-  Col, 
-  Row, 
-  Card 
+import {
+  Form,
+  Button,
+  Image,
+  Container,
+  Col,
+  Row,
+  Card,
 } from 'react-bootstrap';
 import * as yup from 'yup';
 import axios from 'axios';
@@ -34,11 +34,11 @@ const SignUpForm = () => {
       passwordConfirmation: yup
         .string()
         .required(t('errors.required'))
-        .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => (value === firstPassword))
+        .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => (value === firstPassword)),
     }),
     onSubmit: async (values) => {
       try {
-        await axios.post(routes.signUp(), { username: values.userName, password: values.password});
+        await axios.post(routes.signUp(), { username: values.userName, password: values.password });
         const loginRes = await axios.post(
           routes.loginPath(),
           { username: values.userName, password: values.password },
@@ -111,30 +111,30 @@ const SignUpForm = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="form-floating mb-3">
-                    <Form.Control 
+                    <Form.Control
                       type="password"
                       value={formik.values.passwordConfirmation}
                       placeholder={t('passwordConfirmation')}
                       id="passwordConfirmation"
                       autocomplete="on"
                       isInvalid={
-                        formik.touched.passwordConfirmation &&
+                        formik.touched.passwordConfirmation 
+                        &&
                         formik.errors.passwordConfirmation
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                    >
-                    </Form.Control>
+                    />
                     <Form.Label htmlFor="passwordConfirmation">{t('passwordConfirmation')}</Form.Label>
                     <Form.Control.Feedback type="invalid" tooltip>
                       { formik.touched.passwordConfirmation && formik.errors.passwordConfirmation }
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Button
-                    type="Submit" 
+                    type="Submit"
                     className="w-100 mb-3 btn btn-outline-primary btn-light"
                   >
-                    {t('register')} 
+                    {t('register')}
                   </Button>
                 </fieldset>
               </Form>

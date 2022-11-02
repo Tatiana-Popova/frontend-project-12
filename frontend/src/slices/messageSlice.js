@@ -19,7 +19,7 @@ const messageSlice = createSlice({
     builder
       .addCase(fetchInitialData.fulfilled, (state, action) => {
         const { messages } = action.payload;
-        messagesAdapter.addMany(state, messages); 
+        messagesAdapter.addMany(state, messages);
       });
   },
 });

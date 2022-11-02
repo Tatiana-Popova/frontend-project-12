@@ -13,7 +13,9 @@ const NavBar = () => {
     <Navbar className="shadow-sm navbar-expand-lg navbar-light bg-white">
       <Container>
         <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-        { (hasToken && 
+        {(
+          hasToken
+          &&
           <Button
             className="btn-primary"
             onClick={() => {
@@ -22,8 +24,8 @@ const NavBar = () => {
             }}
           >
             {t('exit')}
-          </Button>)
-        }
+          </Button>
+        )}
       </Container>
     </Navbar>
   );

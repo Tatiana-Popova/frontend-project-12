@@ -22,7 +22,7 @@ const Channels = () => {
   const navigate = useNavigate();
   const channelState = useSelector((state) => state.channels);
   const channelStateErrorCode = channelState.error?.code;
-  console.log('channelStateErrorCode', channelStateErrorCode)
+  console.log('channelStateErrorCode', channelStateErrorCode);
   useEffect(() => {
     if (channelStateErrorCode === 'ERR_BAD_REQUEST') {
       auth.logOut();
@@ -37,7 +37,7 @@ const Channels = () => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
   const showModal = (type, item = null) => setModalInfo({ type, item });
-  const renderModal = ({ hideModal }) => {
+  const renderModal = () => {
     if (!modalInfo.type) {
       return null;
     }
@@ -62,7 +62,7 @@ const Channels = () => {
         {channels.map((channel) => {
           if (channel.removable) {
             return (
-              <Nav.Item className="nav-item w-100">
+              <Nav.Item className="nav-item w-100" key={channel.id}>
                 <Dropdown className="d-flex dropdown btn-group">
                   <Button
                     className={
@@ -77,7 +77,7 @@ const Channels = () => {
                     onClick={() => dispatch(
                       changeCurrentChannel(
                         { reason: 'changing', channelIdToChange: channel.id },
-                      )
+                      ),
                     )}
                   >
                     { `# ${channel.name}` }
@@ -95,7 +95,7 @@ const Channels = () => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item
-                      onClick={ () => showModal('removingChannel', channel) } 
+                      onClick={() => showModal('removingChannel', channel)}
                       eventKey="1"
                     >
                       {t('delete')}
@@ -112,7 +112,7 @@ const Channels = () => {
             );
           }
           return (
-            <Nav.Item className="nav-item w-100">
+            <Nav.Item className="nav-item w-100" key={channel.id}>
               <Button
                 type="button"
                 className={
@@ -125,7 +125,7 @@ const Channels = () => {
                   )
                 }
                 onClick={() => dispatch(
-                    changeCurrentChannel({reason: 'changing', channelIdToChange: channel.id}),
+                  changeCurrentChannel({ reason: 'changing', channelIdToChange: channel.id }),
                 )}
               >
                 <span className="me-1">#</span>

@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import LoginForm from './LoginForm.jsx';
-import Chat from './Chat.jsx';
-import NotFound from './NotFound.jsx';
-import NavBar from './NavBar.jsx';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,10 +7,14 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import LoginForm from './LoginForm.jsx';
+import Chat from './Chat.jsx';
+import NotFound from './NotFound.jsx';
+import NavBar from './NavBar.jsx';
 import AuthContext from '../contexts/index.jsx';
 import SocketContext from '../contexts/SocketContext.jsx';
 import SignUpForm from './SignUpForm.jsx';
-import 'react-toastify/dist/ReactToastify.css';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -53,8 +53,7 @@ const SocketProvider = ({ socket, children }) => {
   };
   return (
     <SocketContext.Provider
-      value=
-      {
+      value={
         { emitMessage, emitNewChannel, emitRemoveChannel, emitRenameChannel }
       }
     >
@@ -68,7 +67,7 @@ const App = ({ socket }) => (
     <AuthProvider>
       <Router>
         <div className="d-flex flex-column h-100">
-          <NavBar/>
+          <NavBar />
           <Routes>
             <Route
               path="/"
@@ -83,7 +82,7 @@ const App = ({ socket }) => (
             <Route path="/signup" element={<SignUpForm />} />
           </Routes>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
       </Router>
     </AuthProvider>
   </SocketProvider>

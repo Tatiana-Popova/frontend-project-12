@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'react-bootstrap';
+// eslint-disable-next-line import/no-cycle
 import Channels from './chatComponents/Channels.jsx';
 import Messages from './chatComponents/Messages.jsx';
 import routes from '../routes.js';
@@ -30,9 +31,9 @@ const Chat = (socket) => {
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="bg-white flex-md-row" style={{ height: '85vh' }}>
         <Channels />
-        <Messages value={socket}/>
+        <Messages value={socket} />
       </Row>
-    </Container> 
+    </Container>
   );
 };
 

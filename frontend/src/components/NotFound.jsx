@@ -1,6 +1,6 @@
 import React from 'react';
-import avatarNotFound from '../assets/avatar_not_found.jpg';
 import { useTranslation } from 'react-i18next';
+import avatarNotFound from '../assets/avatar_not_found.jpg';
 
 const NotFound = () => {
   const { t } = useTranslation();
