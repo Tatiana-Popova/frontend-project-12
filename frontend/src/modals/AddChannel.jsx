@@ -84,7 +84,7 @@ const AddChannel = (props) => {
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn btn-secondary" onClick={onHide}>{t('cancel')}</Button>
-            <Button 
+            <Button
               type="submit"
               className="btn btn-primary"
               disabled={formik.isSubmitting}

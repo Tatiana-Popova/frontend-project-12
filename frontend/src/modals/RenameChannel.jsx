@@ -15,7 +15,7 @@ const RenameChannel = (props) => {
   const socket = UseSocket();
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
   const existingChannelsNames = existingСhannels.map((channel) => channel.name);
-  
+
   const { onHide, modalInfo } = props;
   // eslint-disable-next-line react/destructuring-assignment
   const { name } = props.modalInfo.item;
@@ -41,7 +41,7 @@ const RenameChannel = (props) => {
       }
       formik.setSubmitting(false);
       onHide();
-    }
+    },
   });
 
   const inputRef = useRef();
