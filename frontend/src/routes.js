@@ -8,7 +8,7 @@ const routes = {
     login: '/login',
     signup: '/signup',
     rootPage: '/',
-  }
+  },
 };
 
 export default routes;

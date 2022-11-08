@@ -100,7 +100,7 @@ const LoginForm = () => {
                     {formik.touched.password && formik.errors.password}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Button 
+                <Button
                   type="Submit"
                   className="w-100 mb-3 btn-outline-primary btn-light"
                   disabled={formik.isSubmitting}

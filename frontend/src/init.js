@@ -1,13 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { Provider } from 'react-redux';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './components/App';
 import store from './slices/index.js';
 import { actions as messageActions } from './slices/messageSlice';
 import { actions as channelActions, changeCurrentChannel } from './slices/channelSlice';
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import resources from './locales/index.js';
 
 const rollbarConfig = {
@@ -21,17 +21,17 @@ const rollbarConfig = {
 
 const Init = (socket) => {
   i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: 'ru',
-    fallbackLng: 'ru',
-    debug: true,
-    interpolation: {
-      escapeValue: false,
-    },
-  });
-  
+    .use(initReactI18next)
+    .init({
+      resources,
+      lng: 'ru',
+      fallbackLng: 'ru',
+      debug: true,
+      interpolation: {
+        escapeValue: false,
+      },
+    });
+
   socket.on('newMessage', (data) => {
     store.dispatch(messageActions.addMessage(data));
   });

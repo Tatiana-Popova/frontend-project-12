@@ -20,29 +20,8 @@ const AddChannel = (props) => {
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
   const existingChannelsNames = existingСhannels.map((channel) => channel.name);
 
-  const generateOnSubmit = ({ onHide }) => (values) => {
-    formik.setSubmitting(true);
-    const filteredChannelName = filter.clean(values.body);
-    const channel = {
-      id: _.uniqueId(),
-      name: filteredChannelName,
-      removable: true,
-      isCurrent: true,
-    };
-    try {
-      socket.emitNewChannel(channel);
-      dispatch(changeCurrentChannel({ reason: 'new', channelIdToChange: channel.id }));
-      toast.success(t('channelCreating.success'));
-    } catch (error) {
-      toast.error(t('channelCreating.error'));
-    }
-    formik.setSubmitting(false);
-    onHide();
-  };
-
   const { onHide } = props;
   const formik = useFormik({
-    onSubmit: generateOnSubmit(props),
     initialValues: { body: '' },
     validationSchema: yup.object({
       body: yup
@@ -52,6 +31,26 @@ const AddChannel = (props) => {
         .max(20, t('errors.fromTo'))
         .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value)),
     }),
+    onSubmit: () => {
+      formik.setSubmitting(true);
+      const filteredChannelName = filter.clean(formik.values.body);
+      const channel = {
+        id: _.uniqueId(),
+        name: filteredChannelName,
+        removable: true,
+        isCurrent: true,
+      };
+      try {
+        console.log('channel', channel);
+        socket.emitNewChannel(channel);
+        dispatch(changeCurrentChannel({ reason: 'new', channelIdToChange: channel.id }));
+        toast.success(t('channelCreating.success'));
+      } catch (error) {
+        toast.error(t('channelCreating.error'));
+      }
+      formik.setSubmitting(false);
+      onHide();
+    },
   });
 
   const inputRef = useRef();

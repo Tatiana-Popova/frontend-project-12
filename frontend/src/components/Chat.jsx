@@ -28,8 +28,8 @@ const Chat = (socket) => {
           channel.isCurrent = channel.id === currentChannelId;
           return channel;
         });
-      dispatch(channelActions.addChannels(markedAsCurrentChannels));
-      dispatch(messageActions.addMessages(messages));
+        dispatch(channelActions.addChannels(markedAsCurrentChannels));
+        dispatch(messageActions.addMessages(messages));
       } catch (error) {
         console.log('error', error);
         if (error.code === 'ERR_BAD_REQUEST') {
@@ -41,8 +41,8 @@ const Chat = (socket) => {
       }
     };
     fetchInitialData();
-  //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">

@@ -9,23 +9,33 @@ const RemoveChannel = (props) => {
   const { t } = useTranslation();
   const socket = UseSocket();
 
-  const generateOnSubmit = ({ modalInfo, onHide }) => () => {
-    formik.setSubmitting(true);
-    try {
-      socket.emitRemoveChannel({ id: modalInfo.item.id });
-      toast.success(t('channelRemoving.success'));
-    } catch (error) {
-      toast.error(t('channelRemoving.error'));
-    }
-    formik.setSubmitting(false);
-    onHide();
-  };
-
-  const { onHide } = props;
+  const { onHide, modalInfo } = props;
   const formik = useFormik({
-    onSubmit: generateOnSubmit(props),
     initialValues: {},
+    onSubmit: () => {
+      formik.setSubmitting(true);
+      try {
+        socket.emitRemoveChannel({ id: modalInfo.item.id });
+        toast.success(t('channelRemoving.success'));
+      } catch (error) {
+        toast.error(t('channelRemoving.error'));
+      }
+      formik.setSubmitting(false);
+      onHide();
+    }
   });
+
+  // const generateOnSubmit = ({ modalInfo, onHide }) => () => {
+  //   formik.setSubmitting(true);
+  //   try {
+  //     socket.emitRemoveChannel({ id: modalInfo.item.id });
+  //     toast.success(t('channelRemoving.success'));
+  //   } catch (error) {
+  //     toast.error(t('channelRemoving.error'));
+  //   }
+  //   formik.setSubmitting(false);
+  //   onHide();
+  // };
 
   return (
     <Modal show>

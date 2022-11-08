@@ -15,26 +15,12 @@ const RenameChannel = (props) => {
   const socket = UseSocket();
   const existingСhannels = Object.values(useSelector((state) => state.channels.entities));
   const existingChannelsNames = existingСhannels.map((channel) => channel.name);
-
-  const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
-    formik.setSubmitting(true);
-    try {
-      const filteredChannelName = filter.clean(values.body);
-      socket.emitRenameChannel({ id: modalInfo.item.id, name: filteredChannelName });
-      toast.success(t('channelRenaming.success'));
-    } catch (error) {
-      toast.error(t('channelRenaming.error'));
-    }
-    formik.setSubmitting(false);
-    onHide();
-  };
-
-  const { onHide } = props;
+  
+  const { onHide, modalInfo } = props;
   // eslint-disable-next-line react/destructuring-assignment
   const { name } = props.modalInfo.item;
 
   const formik = useFormik({
-    onSubmit: generateOnSubmit(props),
     initialValues: { body: name },
     validationSchema: yup.object({
       body: yup
@@ -44,6 +30,18 @@ const RenameChannel = (props) => {
         .max(20, t('errors.fromTo'))
         .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value)),
     }),
+    onSubmit: () => {
+      formik.setSubmitting(true);
+      try {
+        const filteredChannelName = filter.clean(formik.values.body);
+        socket.emitRenameChannel({ id: modalInfo.item.id, name: filteredChannelName });
+        toast.success(t('channelRenaming.success'));
+      } catch (error) {
+        toast.error(t('channelRenaming.error'));
+      }
+      formik.setSubmitting(false);
+      onHide();
+    }
   });
 
   const inputRef = useRef();
@@ -77,7 +75,7 @@ const RenameChannel = (props) => {
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn-secondary" onClick={onHide}>{t('cancel')}</Button>
-            <Button 
+            <Button
               type="submit"
               className="btn-primary"
               disabled={formik.isSubmitting}

@@ -98,12 +98,14 @@ const Channels = () => {
                     <Dropdown.Item
                       onClick={() => showModal('removingChannel', channel)}
                       eventKey="1"
+                      active={false}
                     >
                       {t('delete')}
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => showModal('renamingChannel', channel)}
                       eventKey="2"
+                      active={false}
                     >
                       {t('rename')}
                     </Dropdown.Item>

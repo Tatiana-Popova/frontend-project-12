@@ -1,6 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -15,7 +13,7 @@ const Messages = () => {
   const forScrollingBottom = useRef();
   useEffect(() => {
     forScrollingBottom.current.scrollIntoView(false);
-  }, [messages])
+  }, [messages]);
 
   return (
     <Col className="col p-0 h-100">

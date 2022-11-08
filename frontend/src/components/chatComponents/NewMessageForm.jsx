@@ -53,7 +53,7 @@ const NewMessageForm = ({ currentChannel }) => {
           className="border-0 p-0 ps-2 me-1 shadow-none"
           ref={inputRef}
         />
-        <Button 
+        <Button
           type="submit"
           variant="outline-primary"
           className="rounded ml-2"
