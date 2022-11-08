@@ -37,6 +37,7 @@ const SignUpForm = () => {
         .test('passwordsMatch', t('errors.passwordsMustBeSame'), (value) => (value === firstPassword)),
     }),
     onSubmit: async (values) => {
+      formik.setSubmitting(true);
       try {
         await axios.post(routes.signUp(), { username: values.userName, password: values.password });
         const loginRes = await axios.post(
@@ -46,12 +47,13 @@ const SignUpForm = () => {
         localStorage.clear();
         localStorage.setItem('userId', JSON.stringify(loginRes.data));
         auth.logIn();
-        navigate('/');
+        navigate(routes.pages.rootPage);
       } catch (error) {
         if (error.response.status === 409) {
           formik.errors.userName = t('errors.usernameIsClaimed');
         }
       }
+      formik.setSubmitting(false);
     },
   });
 
@@ -79,6 +81,7 @@ const SignUpForm = () => {
                       value={formik.values.userName}
                       placeholder={t('username')}
                       id="userName"
+                      className="shadow-none"
                       isInvalid={formik.touched.userName && formik.errors.userName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -95,6 +98,7 @@ const SignUpForm = () => {
                       placeholder={t('password')}
                       id="password"
                       autocomplete="on"
+                      className="shadow-none"
                       isInvalid={formik.touched.password && formik.errors.password}
                       onChange={(e) => {
                         setFirstPassword(e.target.value);
@@ -114,6 +118,7 @@ const SignUpForm = () => {
                       placeholder={t('passwordConfirmation')}
                       id="passwordConfirmation"
                       autocomplete="on"
+                      className="shadow-none"
                       isInvalid={
                         formik.touched.passwordConfirmation
                         && formik.errors.passwordConfirmation
@@ -129,6 +134,7 @@ const SignUpForm = () => {
                   <Button
                     type="Submit"
                     className="w-100 mb-3 btn btn-outline-primary btn-light"
+                    disabled={formik.isSubmitting}
                   >
                     {t('register')}
                   </Button>

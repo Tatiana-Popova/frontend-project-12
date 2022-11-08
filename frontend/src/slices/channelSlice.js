@@ -21,6 +21,7 @@ const channelSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchInitialData.fulfilled, (state, action) => {
+        console.log('good');
         console.log(action.payload);
         const { channels, currentChannelId } = action.payload;
         const markedAsCurrentChannels = channels.map((channel) => {
@@ -32,7 +33,11 @@ const channelSlice = createSlice({
         state.error = null;
         channelsAdapter.addMany(state, markedAsCurrentChannels);
       })
+      .addCase(fetchInitialData.pending, (state, action) => {
+        console.log('gopending');
+      })
       .addCase(fetchInitialData.rejected, (state, action) => {
+        console.log('rejected', action.error.message);
         // eslint-disable-next-line no-param-reassign
         state.error = action.error;
       })

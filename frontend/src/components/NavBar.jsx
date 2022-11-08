@@ -3,6 +3,7 @@ import { Container, Navbar, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks';
+import routes from '../routes';
 
 const NavBar = () => {
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ const NavBar = () => {
         {(
           hasToken
           && (
-            <Button className="btn-primary" onClick={() => { auth.logOut(); navigate('/login'); }}>
+            <Button className="btn-primary" onClick={() => { auth.logOut(); navigate(routes.pages.login); }}>
               {t('exit')}
             </Button>
           )

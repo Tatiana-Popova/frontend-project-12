@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -15,7 +14,6 @@ const NewMessageForm = ({ currentChannel }) => {
   const [newMessageInput, setNewMessageInput] = useState('');
   const inputRef = useRef();
   const sendButtonRef = useRef();
-  const isDisabled = useSelector((state) => state.messages.loading === 'failed');
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -28,6 +26,7 @@ const NewMessageForm = ({ currentChannel }) => {
       newMessage: '',
     },
     onSubmit: (values, { resetForm }) => {
+      formik.setSubmitting(true);
       const { newMessage } = values;
       const filteredMessage = filter.clean(newMessage);
       const { username } = JSON.parse(localStorage.getItem('userId'));
@@ -35,12 +34,12 @@ const NewMessageForm = ({ currentChannel }) => {
       socket.emitMessage({ body: filteredMessage, channelId, username });
       resetForm({ values: '' });
       setNewMessageInput('');
+      formik.setSubmitting(false);
     },
   });
 
-  const btnClass = cn('btn', 'btn-group-vertical', { disabled: isDisabled });
   return (
-    <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
+    <Form onSubmit={formik.handleSubmit} className="p-1 border rounded-2">
       <Form.Group className="input-group has-validation">
         <Form.Control
           value={formik.values.newMessage}
@@ -52,10 +51,16 @@ const NewMessageForm = ({ currentChannel }) => {
           placeholder={t('enterAMessage')}
           id="newMessage"
           aria-label={t('newMessage')}
-          className="border-0 p-0 ps-2 form-control"
+          className="border-0 p-0 ps-2 me-1 shadow-none"
           ref={inputRef}
         />
-        <Button type="submit" className={btnClass} ref={sendButtonRef}>
+        <Button 
+          type="submit"
+          variant="outline-primary"
+          className="rounded ml-2"
+          ref={sendButtonRef}
+          disabled={formik.isSubmitting}
+        >
           {'>'}
           <span className="visually-hidden">{t('send')}</span>
         </Button>

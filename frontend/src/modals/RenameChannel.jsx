@@ -17,6 +17,7 @@ const RenameChannel = (props) => {
   const existingChannelsNames = existingСhannels.map((channel) => channel.name);
 
   const generateOnSubmit = ({ modalInfo, onHide }) => (values) => {
+    formik.setSubmitting(true);
     try {
       const filteredChannelName = filter.clean(values.body);
       socket.emitRenameChannel({ id: modalInfo.item.id, name: filteredChannelName });
@@ -24,6 +25,7 @@ const RenameChannel = (props) => {
     } catch (error) {
       toast.error(t('channelRenaming.error'));
     }
+    formik.setSubmitting(false);
     onHide();
   };
 
@@ -38,6 +40,8 @@ const RenameChannel = (props) => {
       body: yup
         .string()
         .required(t('errors.required'))
+        .min(3, t('errors.fromTo'))
+        .max(20, t('errors.fromTo'))
         .test('uniq', t('errors.mustBeUniq'), (value) => !existingChannelsNames.includes(value)),
     }),
   });
@@ -65,7 +69,7 @@ const RenameChannel = (props) => {
               data-testid="input-body"
               name="body"
               id="body"
-              className="mb-2 form-control"
+              className="mb-2 shadow-none"
               isInvalid={formik.touched.body && formik.errors.body}
             />
             <Form.Label className="visually-hidden" htmlFor="body">{t('channelName')}</Form.Label>
@@ -73,7 +77,13 @@ const RenameChannel = (props) => {
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn-secondary" onClick={onHide}>{t('cancel')}</Button>
-            <Button type="submit" className="btn-primary">{t('send')}</Button>
+            <Button 
+              type="submit"
+              className="btn-primary"
+              disabled={formik.isSubmitting}
+            >
+              {t('send')}
+            </Button>
           </div>
         </form>
       </Modal.Body>

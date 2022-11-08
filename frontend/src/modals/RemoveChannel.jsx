@@ -10,12 +10,14 @@ const RemoveChannel = (props) => {
   const socket = UseSocket();
 
   const generateOnSubmit = ({ modalInfo, onHide }) => () => {
+    formik.setSubmitting(true);
     try {
       socket.emitRemoveChannel({ id: modalInfo.item.id });
       toast.success(t('channelRemoving.success'));
     } catch (error) {
       toast.error(t('channelRemoving.error'));
     }
+    formik.setSubmitting(false);
     onHide();
   };
 
@@ -36,7 +38,13 @@ const RemoveChannel = (props) => {
           <p className="lead">{t('areYouSure')}</p>
           <div className="d-flex justify-content-end">
             <Button className="me-2 btn-secondary" onClick={onHide}>{t('cancel')}</Button>
-            <Button type="submit" className="btn-danger">{t('send')}</Button>
+            <Button 
+              type="submit"
+              className="btn-danger"
+              disabled={formik.isSubmitting}
+            >
+              {t('send')}
+            </Button>
           </div>
         </form>
       </Modal.Body>

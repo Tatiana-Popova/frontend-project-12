@@ -15,6 +15,7 @@ import { changeCurrentChannel } from '../../slices/channelSlice';
 // eslint-disable-next-line import/no-cycle
 import getModal from '../../modals/index.js';
 import useAuth from '../../hooks';
+import routes from '../../routes';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -22,11 +23,10 @@ const Channels = () => {
   const navigate = useNavigate();
   const channelState = useSelector((state) => state.channels);
   const channelStateErrorCode = channelState.error?.code;
-  console.log('channelStateErrorCode', channelStateErrorCode);
   useEffect(() => {
     if (channelStateErrorCode === 'ERR_BAD_REQUEST') {
       auth.logOut();
-      navigate('/login');
+      navigate(routes.pages.login);
     } else if (channelStateErrorCode) {
       toast.error(t('errors.networkError'));
     }
@@ -67,6 +67,7 @@ const Channels = () => {
                   <Button
                     className={
                       cn(
+                        'text-truncate',
                         'w-100',
                         'rounded-0',
                         'text-start',

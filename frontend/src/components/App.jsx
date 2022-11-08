@@ -15,8 +15,17 @@ import NavBar from './NavBar.jsx';
 import AuthContext from '../contexts/index.jsx';
 import SocketContext from '../contexts/SocketContext.jsx';
 import SignUpForm from './SignUpForm.jsx';
+import routes from '../routes.js';
 
 const AuthProvider = ({ children }) => {
+  const getAuthHeader = () => {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    if (userId && userId.token) {
+      return { Authorization: `Bearer ${userId.token}` };
+    }
+    return {};
+  };
+
   const [loggedIn, setLoggedIn] = useState(false);
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
@@ -24,7 +33,7 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ loggedIn, logIn, logOut, getAuthHeader }}>
       {children}
     </AuthContext.Provider>
   );
@@ -34,7 +43,7 @@ const PrivateRoute = ({ children }) => {
   const hasToken = localStorage.getItem('userId');
   const location = useLocation();
   return (
-    hasToken ? children : <Navigate to="/login" state={{ from: location }} />
+    hasToken ? children : <Navigate to={routes.pages.login} state={{ from: location }} />
   );
 };
 
@@ -79,11 +88,12 @@ const App = ({ socket }) => (
                 </PrivateRoute>
               )}
             />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path={routes.pages.login} element={<LoginForm />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/signup" element={<SignUpForm />} />
+            <Route path={routes.pages.signup} element={<SignUpForm />} />
           </Routes>
         </div>
+
         <ToastContainer />
       </Router>
     </AuthProvider>

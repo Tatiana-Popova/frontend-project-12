@@ -1,4 +1,6 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useRef } from 'react';
 import { Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -10,6 +12,10 @@ const Messages = () => {
   const currentChannel = channels.find((channel) => channel.isCurrent) ?? 1;
   const messages = useSelector((state) => Object.values(state.messages.entities));
   const filteredMessages = messages.filter((message) => message.channelId === currentChannel.id);
+  const forScrollingBottom = useRef();
+  useEffect(() => {
+    forScrollingBottom.current.scrollIntoView(false);
+  }, [messages])
 
   return (
     <Col className="col p-0 h-100">
@@ -21,8 +27,7 @@ const Messages = () => {
             </b>
           </p>
           <span className="text-muted">
-            {filteredMessages.length}
-            {t('messageLength')}
+            {`${filteredMessages.length} ${t('messageLength')}`}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
@@ -34,6 +39,7 @@ const Messages = () => {
               </div>
             ))
           }
+          <div ref={forScrollingBottom} />
         </div>
         <div className="mt-auto px-5 py-3">
           { currentChannel && <NewMessageForm currentChannel={currentChannel} /> }

@@ -4,7 +4,7 @@ import { fetchInitialData } from '../components/Chat';
 const messagesAdapter = createEntityAdapter();
 const messageSlice = createSlice({
   name: 'messages',
-  initialState: messagesAdapter.getInitialState({ loading: 'idle', error: null }),
+  initialState: messagesAdapter.getInitialState(),
   reducers: {
     addMessage: messagesAdapter.addOne,
     removeMessages(state, action) {
