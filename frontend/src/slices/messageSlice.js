@@ -1,5 +1,4 @@
 import { current, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { fetchInitialData } from '../components/Chat';
 
 const messagesAdapter = createEntityAdapter();
 const messageSlice = createSlice({
@@ -7,6 +6,7 @@ const messageSlice = createSlice({
   initialState: messagesAdapter.getInitialState(),
   reducers: {
     addMessage: messagesAdapter.addOne,
+    addMessages: messagesAdapter.addMany,
     removeMessages(state, action) {
       const channelId = action.payload;
       const messagesByChannelId = Object
@@ -14,13 +14,6 @@ const messageSlice = createSlice({
         .filter((message) => message.channelId === channelId);
       messagesAdapter.removeMany(state, messagesByChannelId);
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchInitialData.fulfilled, (state, action) => {
-        const { messages } = action.payload;
-        messagesAdapter.addMany(state, messages);
-      });
   },
 });
 

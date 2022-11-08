@@ -62,10 +62,10 @@ const LoginForm = () => {
         <Col md={8} xxl={6}>
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
-              <Col className="d-flex align-items-center justify-content-center">
-                <Image src={avatar} className="rounded-circle" alt="Войти" />
+              <Col md={6} className="d-flex align-items-center justify-content-center">
+                <Image src={avatar} className="rounded-circle" alt={t('enter')} />
               </Col>
-              <Col as={Form} md={6} mt={3} onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+              <Col as={Form} md={6} onSubmit={formik.handleSubmit} className="mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('enter')}</h1>
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
@@ -111,8 +111,8 @@ const LoginForm = () => {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('haveNoAccount')}</span>
-                <a href="/signup">{t('registration')}</a>
+                {`${t('haveNoAccount')} `}
+                <a href={routes.pages.signup}>{t('registration')}</a>
               </div>
             </Card.Footer>
           </Card>
