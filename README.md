@@ -25,5 +25,3 @@ $ make start
 ```
 
 #### How it looks:
-
-https://user-images.githubusercontent.com/79038733/203799899-c7c5cf5b-4bd9-4070-a5b7-55cad6f6c722.png
