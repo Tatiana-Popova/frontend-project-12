@@ -26,17 +26,4 @@ $ make start
 
 #### How it looks:
 
-![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
-}/raw/{main}/{frontend/src/assets}/login.png)
-
-![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
-}/raw/{main}/{frontend/src/assets}/signin_error.png)
-
-![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
-}/raw/{main}/{frontend/src/assets}/chat.png)
-
-![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
-}/raw/{main}/{frontend/src/assets}/add_channel.png)
-
-![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
-}/raw/{main}/{frontend/src/assets}/chat_rename_delete.png)
+https://user-images.githubusercontent.com/79038733/203799899-c7c5cf5b-4bd9-4070-a5b7-55cad6f6c722.png
