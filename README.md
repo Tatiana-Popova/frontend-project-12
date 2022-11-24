@@ -23,3 +23,20 @@ $ sudo npm link
 $ make build
 $ make start
 ```
+
+#### How it looks:
+
+![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
+}/raw/{main}/{frontend/src/assets}/login.png)
+
+![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
+}/raw/{main}/{frontend/src/assets}/signin_error.png)
+
+![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
+}/raw/{main}/{frontend/src/assets}/chat.png)
+
+![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
+}/raw/{main}/{frontend/src/assets}/add_channel.png)
+
+![Image alt](https://github.com/{Tatiana-Popova}/{frontend-project-12
+}/raw/{main}/{frontend/src/assets}/chat_rename_delete.png)
