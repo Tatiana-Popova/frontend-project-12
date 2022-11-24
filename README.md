@@ -7,7 +7,7 @@
 
 Этот проект представляет собой упрощенную версию чата Slack. При его разработке задействованы технологии веб-сокетов, взаимодействие с REST API, React, Redux (reduxjs/toolkit), роутинг, авторизация и аунтефикация, сборка и деплой.
 
-#### Demo:
+#### Demo: https://frontend-project-12-production-5fba.up.railway.app
 
 **Install:**
 
